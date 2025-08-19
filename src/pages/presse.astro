@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+
+const metadata = {
+  title: 'Presse & Médias',
+  description: 'Interviews, podcasts et articles de presse concernant Maxence Mey.',
+};
+
+const pressEntries = (await getCollection('press')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <Headline>
+      <Fragment slot="title">Presse & Médias</Fragment>
+      <Fragment slot="subtitle">
+        Plongez dans les coulisses du parcours de Maxence à travers ses interviews et les articles qui lui sont consacrés.
+      </Fragment>
+    </Headline>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {pressEntries.map((entry) => (
+        <a href={entry.data.url} target="_blank" rel="noopener noreferrer" class="block p-6 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+          <h3 class="font-bold text-xl mb-2">{entry.data.title}</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">{entry.data.excerpt}</p>
+          <div class="font-medium text-sm text-primary-600 dark:text-primary-200">
+            Écouter / Lire sur {entry.data.sourceName} »
+          </div>
+        </a>
+      ))}
+    </div>
+  </WidgetWrapper>
+</Layout>
