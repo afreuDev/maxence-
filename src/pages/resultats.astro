@@ -9,9 +9,7 @@ const metadata = {
   description: 'Palmarès et résultats complets de Maxence Mey sur le circuit professionnel de triathlon.',
 };
 
-const results = (await getCollection('results')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const results = (await getCollection('results')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Layout metadata={metadata}>
@@ -24,33 +22,48 @@ const results = (await getCollection('results')).sort(
     </Headline>
     <div class="relative not-prose">
       <ul class="space-y-4">
-        <li class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 font-bold text-sm text-gray-500 dark:text-gray-400 uppercase">
+        <li
+          class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 font-bold text-sm text-gray-500 dark:text-gray-400 uppercase"
+        >
           <span class="col-span-1 sm:col-span-1">Date</span>
           <span class="col-span-1 sm:col-span-2">Course</span>
           <span class="col-span-1 sm:col-span-1">Classement</span>
           <span class="col-span-1 sm:col-span-1">Temps</span>
         </li>
-        {results.map((result) => (
-          <li class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-            <span class="font-medium">
-              {new Date(result.data.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </span>
-            <span class="font-bold">{result.data.title} ({result.data.distance})</span>
-            <span class="font-bold">
-              {result.data.rank}
-              {result.data.rank === 1 && '🏆'}
-              {result.data.rank > 1 && result.data.rank <= 3 && '🥈'}
-            </span>
-            <span class="font-mono">{result.data.time}</span>
-            <div>
-              {result.data.source && (
-                <a class="text-primary-600 hover:underline text-sm" href={result.data.source[0]} target="_blank" rel="noopener noreferrer">
-                  Source »
-                </a>
-              )}
-            </div>
-          </li>
-        ))}
+        {
+          results.map((result) => (
+            <li class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+              <span class="font-medium">
+                {new Date(result.data.date).toLocaleDateString('fr-FR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+              <span class="font-bold">
+                {result.data.title} ({result.data.distance})
+              </span>
+              <span class="font-bold">
+                {result.data.rank}
+                {result.data.rank === 1 && '🏆'}
+                {result.data.rank > 1 && result.data.rank <= 3 && '🥈'}
+              </span>
+              <span class="font-mono">{result.data.time}</span>
+              <div>
+                {result.data.source && (
+                  <a
+                    class="text-primary-600 hover:underline text-sm"
+                    href={result.data.source[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Source »
+                  </a>
+                )}
+              </div>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </WidgetWrapper>

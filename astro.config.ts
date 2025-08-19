@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
+import ViteYaml from '@modyfi/vite-plugin-yaml';
 
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -14,6 +15,8 @@ import type { AstroIntegration } from 'astro';
 import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
+
+import vercel from '@astrojs/vercel';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -81,10 +84,13 @@ export default defineConfig({
   },
 
   vite: {
+    plugins: [ViteYaml()],
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),
       },
     },
   },
+
+  adapter: vercel(),
 });

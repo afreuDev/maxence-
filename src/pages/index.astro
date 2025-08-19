@@ -1,6 +1,5 @@
 ---
 import { getPermalink } from '~/utils/permalinks';
-import { getCollection } from 'astro:content';
 
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
@@ -10,10 +9,9 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
 const metadata = {
   title: 'Accueil',
 };
-
 ---
-<Layout metadata={metadata}>
 
+<Layout metadata={metadata}>
   <!-- Hero Widget -->
   <Hero
     actions={[
@@ -22,15 +20,13 @@ const metadata = {
         text: 'Suivre sur Instagram',
         href: 'https://instagram.com/maxencemeytri',
         target: '_blank',
-        icon: 'tabler:brand-instagram'
+        icon: 'tabler:brand-instagram',
       },
       { text: 'Contact', href: getPermalink('/contact') },
     ]}
     image={{ src: '~/assets/images/hero-maxence.jpg', alt: 'Maxence Mey triathlète' }}
   >
-    <Fragment slot="title">
-      Maxence Mey
-    </Fragment>
+    <Fragment slot="title"> Maxence Mey </Fragment>
 
     <Fragment slot="subtitle">
       <span class="block sm:inline">Triathlète professionnel</span>
@@ -42,10 +38,10 @@ const metadata = {
   <!-- Stats Widget -->
   <Stats
     stats={[
-      { title: 'Victoire', value: 'IM 70.3 Tanger 2023' },
-      { title: 'Podium', value: 'Challenge Turku 2025' },
-      { title: 'Top 10', value: 'Challenge Gdańsk 2025' },
-      { title: 'Club', value: 'KEFORMA / Munegu' },
+      { title: 'Victoire', amount: 'IM 70.3 Tanger 2023' },
+      { title: 'Podium', amount: 'Challenge Turku 2025' },
+      { title: 'Top 10', amount: 'Challenge Gdańsk 2025' },
+      { title: 'Club', amount: 'KEFORMA / Munegu' },
     ]}
   />
 
@@ -59,12 +55,8 @@ const metadata = {
       },
     ]}
   >
-    <Fragment slot="title">
-      Soutenir un athlète de haut niveau
-    </Fragment>
+    <Fragment slot="title"> Soutenir un athlète de haut niveau </Fragment>
 
-    <Fragment slot="subtitle">
-      Associez votre image à un projet sportif ambitieux et authentique.
-    </Fragment>
+    <Fragment slot="subtitle"> Associez votre image à un projet sportif ambitieux et authentique. </Fragment>
   </CallToAction>
 </Layout>

@@ -93,7 +93,6 @@ const pressCollection = defineCollection({
   }),
 });
 
-
 const athleteCollection = defineCollection({
   loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: 'src/content/athlete' }),
   schema: z.object({
