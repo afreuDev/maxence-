@@ -1,5 +1,7 @@
 ---
-import '@fontsource-variable/inter';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/bebas-neue/400.css';
 
 // 'DM Sans'
 // Nunito
@@ -21,43 +23,45 @@ import '@fontsource-variable/inter';
 
 <style is:inline>
   :root {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
+    --aw-font-sans: 'Poppins', sans-serif;
+    --aw-font-serif: 'Poppins', sans-serif;
+    --aw-font-heading: 'Bebas Neue', sans-serif;
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    /* Sport Chic Palette (Light) */
+    --aw-color-primary: rgb(20 30 54); /* Navy Blue */
+    --aw-color-secondary: rgb(67 83 117); /* Lighter Blue */
+    --aw-color-accent: rgb(255 215 0); /* Gold/Yellow */
 
-    --aw-color-text-heading: rgb(0 0 0);
-    --aw-color-text-default: rgb(16 16 16);
-    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-text-heading: rgb(20 30 54); /* Navy Blue */
+    --aw-color-text-default: rgb(42 42 42);
+    --aw-color-text-muted: rgb(42 42 42 / 66%);
     --aw-color-bg-page: rgb(255 255 255);
 
-    --aw-color-bg-page-dark: rgb(3 6 32);
+    --aw-color-bg-page-dark: rgb(20 30 54);
 
     ::selection {
-      background-color: lavender;
+      background-color: rgba(255, 215, 0, 0.5);
     }
   }
 
   .dark {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
+    --aw-font-sans: 'Poppins', sans-serif;
+    --aw-font-serif: 'Poppins', sans-serif;
+    --aw-font-heading: 'Bebas Neue', sans-serif;
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    /* Sport Chic Palette (Dark) */
+    --aw-color-primary: rgb(255 255 255); /* White */
+    --aw-color-secondary: rgb(200 200 200); /* Light Gray */
+    --aw-color-accent: rgb(255 215 0); /* Gold/Yellow */
 
-    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-heading: rgb(255 255 255);
     --aw-color-text-default: rgb(229 236 246);
     --aw-color-text-muted: rgb(229 236 246 / 66%);
-    --aw-color-bg-page: rgb(3 6 32);
+    --aw-color-bg-page: rgb(20 30 54); /* Navy Blue */
 
     ::selection {
-      background-color: black;
-      color: snow;
+      background-color: rgba(255, 215, 0, 0.5);
+      color: #000;
     }
   }
 </style>
