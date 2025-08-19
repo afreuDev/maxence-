@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://maxencemey.com/sitemap-index.xml

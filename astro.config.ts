@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
-import vercel from '@astrojs/vercel';
 
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -17,6 +16,8 @@ import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
 
+import vercel from '@astrojs/vercel';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const hasExternalScripts = false;
@@ -27,11 +28,6 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
-    vercel({
-      webAnalytics: {
-        enabled: true,
-      },
-    }),
     tailwind({
       applyBaseStyles: false,
     }),
@@ -95,4 +91,6 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: vercel(),
 });
