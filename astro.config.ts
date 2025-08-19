@@ -2,6 +2,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
+import ViteYaml from '@modyfi/vite-plugin-yaml';
+import vercel from '@astrojs/vercel';
 
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -25,6 +27,11 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
+    vercel({
+      webAnalytics: {
+        enabled: true,
+      },
+    }),
     tailwind({
       applyBaseStyles: false,
     }),
@@ -81,6 +88,7 @@ export default defineConfig({
   },
 
   vite: {
+    plugins: [ViteYaml()],
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),

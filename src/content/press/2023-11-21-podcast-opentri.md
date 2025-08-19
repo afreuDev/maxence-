@@ -1,8 +1,8 @@
 ---
-title: "Comment transformer la natation en triathlon de haut niveau"
+title: 'Comment transformer la natation en triathlon de haut niveau'
 publishDate: 2023-11-21
-url: "https://shows.acast.com/devenir-triathlete-par-ohana/episodes/364"
-sourceName: "Devenir Triathlète x Opentri"
+url: 'https://shows.acast.com/devenir-triathlete-par-ohana/episodes/364'
+sourceName: 'Devenir Triathlète x Opentri'
 excerpt: "Maxence Mey raconte sa transition de la natation au triathlon, ses méthodes d'entraînement, et sa victoire à l'Ironman 70.3 de Tanger."
 ---
 

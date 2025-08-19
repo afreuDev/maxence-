@@ -1,20 +1,20 @@
 site:
-  name: "Maxence Mey – Triathlète"
-  site: "https://maxencemey.com"
-  base: "/"
+  name: 'Maxence Mey – Triathlète'
+  site: 'https://maxencemey.com'
+  base: '/'
   trailingSlash: false
 
 # Default SEO metadata
 metadata:
   title:
-    default: "Maxence Mey – Triathlète Professionnel"
+    default: 'Maxence Mey – Triathlète Professionnel'
     template: '%s – Maxence Mey'
-  description: "Site officiel de Maxence Mey, triathlète professionnel français spécialisé sur la distance 70.3 / half-distance. Suivez son calendrier, ses résultats et ses actualités."
+  description: 'Site officiel de Maxence Mey, triathlète professionnel français spécialisé sur la distance 70.3 / half-distance. Suivez son calendrier, ses résultats et ses actualités.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: "Maxence Mey"
+    site_name: 'Maxence Mey'
     images:
       - url: '~/assets/images/hero-maxence.jpg' # Placeholder image
         width: 1200

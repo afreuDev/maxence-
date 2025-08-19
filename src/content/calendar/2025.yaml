@@ -1,9 +1,9 @@
 upcoming:
-  - race: "Challenge Cesenatico"
-    date: "2025-09-28"
-    distance: "Middle"
-    link: "https://challenge-family.com/"
-  - race: "Challenge Gdańsk"
-    date: "2026-06-14" # Using a placeholder day
-    distance: "Middle"
-    link: "https://challenge-poland.com/"
+  - race: 'Challenge Cesenatico'
+    date: '2025-09-28'
+    distance: 'Middle'
+    link: 'https://challenge-family.com/'
+  - race: 'Challenge Gdańsk'
+    date: '2026-06-14' # Using a placeholder day
+    distance: 'Middle'
+    link: 'https://challenge-poland.com/'
