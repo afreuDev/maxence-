@@ -1,0 +1,35 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import calendarData from '~/content/calendar/2025.yaml';
+
+const metadata = {
+  title: 'Calendrier',
+  description: 'Calendrier des courses et objectifs de Maxence Mey pour la saison en cours et à venir.',
+};
+
+const { upcoming } = calendarData;
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <Headline>
+      <Fragment slot="title">Calendrier & Objectifs</Fragment>
+      <Fragment slot="subtitle">
+        Les prochaines courses au programme de Maxence.
+      </Fragment>
+    </Headline>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {upcoming.map((race) => (
+        <a href={race.link} target="_blank" rel="noopener noreferrer" class="block p-6 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition text-center">
+          <h3 class="font-bold text-2xl mb-2">{race.race}</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-1">{race.distance}</p>
+          <p class="font-mono text-lg">
+            {new Date(race.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </a>
+      ))}
+    </div>
+  </WidgetWrapper>
+</Layout>

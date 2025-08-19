@@ -65,6 +65,53 @@ const postCollection = defineCollection({
   }),
 });
 
+const resultsCollection = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: 'src/content/results' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    distance: z.string(),
+    rank: z.number(),
+    time: z.string(),
+    swim: z.string().optional(),
+    bike: z.string().optional(),
+    run: z.string().optional(),
+    source: z.array(z.string().url()).optional(),
+    tags: z.array(z.string()).optional(),
+    team: z.string().optional(),
+  }),
+});
+
+const pressCollection = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: 'src/content/press' }),
+  schema: z.object({
+    title: z.string(),
+    publishDate: z.date(),
+    excerpt: z.string().optional(),
+    url: z.string().url(),
+    sourceName: z.string(),
+  }),
+});
+
+
+const athleteCollection = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: 'src/content/athlete' }),
+  schema: z.object({
+    title: z.string(),
+    role: z.string(),
+    team: z.array(z.string()),
+    clubs: z.array(z.string()),
+    socials: z.object({
+      instagram: z.string().url(),
+      email: z.string().email(),
+    }),
+    cover: z.string(),
+  }),
+});
+
 export const collections = {
   post: postCollection,
+  results: resultsCollection,
+  press: pressCollection,
+  athlete: athleteCollection,
 };

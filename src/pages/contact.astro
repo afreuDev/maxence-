@@ -1,79 +1,83 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+import Contact from '~/components/widgets/Contact.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 
 const metadata = {
   title: 'Contact',
+  description: 'Contactez Maxence Mey pour toute demande de partenariat, interview ou autre.',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
-
-  <HeroText tagline="Contact" title="Let's Connect!" />
-
-  <ContactUs
-    id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
-    }}
-    description="Our support team typically responds within 24 business hours."
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="We are here to help!"
-    items={[
-      {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+  <WidgetWrapper>
+    <Headline>
+      <Fragment slot="title">Contact</Fragment>
+      <Fragment slot="subtitle">
+        Pour toute demande (presse, partenariat, sponsoring), merci de remplir le formulaire ci-dessous ou d'utiliser les réseaux sociaux.
+      </Fragment>
+    </Headline>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div class="card p-6 md:p-8">
+        <Contact
+          title="Formulaire de contact"
+          subtitle="Maxence vous répondra dans les meilleurs délais."
+          inputs={[
+            {
+              type: 'text',
+              name: 'name',
+              label: 'Nom',
+            },
+            {
+              type: 'email',
+              name: 'email',
+              label: 'Email',
+            },
+          ]}
+          textarea={{
+            label: 'Message',
+          }}
+          disclaimer={{
+            label:
+              'En soumettant ce formulaire, vous acceptez que les informations saisies soient utilisées pour vous recontacter.',
+          }}
+          button={{
+            label: 'Envoyer le message',
+          }}
+        />
+      </div>
+       <div class="relative">
+        <div class="card p-6 md:p-8">
+          <h3 class="text-2xl font-bold mb-4">Réseaux Sociaux</h3>
+          <p class="text-muted mb-6">
+            Suivez l'actualité de Maxence au quotidien sur Instagram.
+          </p>
+          <ul class="space-y-4">
+            <li>
+              <a href="https://instagram.com/maxencemeytri" target="_blank" rel="noopener noreferrer" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <rect x="4" y="4" width="16" height="16" rx="4" />
+                  <circle cx="12" cy="12" r="3" />
+                  <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
+                </svg>
+                <span>@maxencemeytri</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:maxencemey431@gmail.com" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <polyline points="3 7 12 13 21 7" />
+                </svg>
+                <span>maxencemey431@gmail.com</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </WidgetWrapper>
 </Layout>
