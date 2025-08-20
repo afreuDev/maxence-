@@ -1,17 +1,9 @@
 ---
-import { getPermalink } from '~/utils/permalinks';
-import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
-
-const metadata = {
-  title: 'Partenaires',
-  description: 'Devenez partenaire de Maxence Mey et associez votre marque à un athlète de haut niveau.',
-};
 ---
 
-<Layout metadata={metadata}>
-  <Content title="Devenir Partenaire" subtitle="Associez votre marque aux valeurs du sport de haut niveau">
+<Content title="Devenir Partenaire" subtitle="Associez votre marque aux valeurs du sport de haut niveau">
     <Fragment slot="content">
       <p class="text-lg mb-4">
         Soutenir Maxence, c'est s'associer à un projet sportif ambitieux porté par un athlète passionné et déterminé.
@@ -26,18 +18,17 @@ const metadata = {
         <li>Création de contenu authentique et inspirant.</li>
       </ul>
     </Fragment>
-  </Content>
+</Content>
 
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Discutons-en',
-        href: getPermalink('/contact'),
-      },
-    ]}
-  >
+<CallToAction
+actions={[
+    {
+    variant: 'primary',
+    text: 'Discutons-en',
+    href: '#contact',
+    },
+]}
+>
     <Fragment slot="title"> Intéressé par une collaboration ? </Fragment>
     <Fragment slot="subtitle"> Contactez Maxence pour discuter des opportunités de partenariat. </Fragment>
-  </CallToAction>
-</Layout>
+</CallToAction>

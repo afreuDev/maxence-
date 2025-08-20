@@ -1,13 +1,16 @@
 ---
-import { getPermalink } from '~/utils/permalinks';
-
-import Layout from '~/layouts/PageLayout.astro';
+import Layout from '~/layouts/LandingLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import Bio from '~/components/widgets/Bio.astro';
+import Calendar from '~/components/widgets/Calendar.astro';
+import Results from '~/components/widgets/Results.astro';
+import Partners from '~/components/widgets/Partners.astro';
+import ContactSection from '~/components/widgets/ContactSection.astro';
+import heroImage from '~/assets/images/hero-maxence.jpg';
 
 const metadata = {
-  title: 'Accueil',
+  title: 'Maxence Mey - Triathlète Professionnel',
 };
 ---
 
@@ -22,10 +25,10 @@ const metadata = {
         target: '_blank',
         icon: 'tabler:brand-instagram',
       },
-      { text: 'Contact', href: getPermalink('/contact') },
+      { text: 'Contact', href: '#contact' },
     ]}
     image={{
-      src: 'https://cdn-s-www.leprogres.fr/images/3DC4DB45-9398-49F1-B5CA-F101512ACCAC/NW_raw/maxence-mey-vainqueur-de-la-course-reine-photo-patrick-bonjour-1749407298.jpg',
+      src: heroImage,
       alt: 'Maxence Mey triathlète',
     }}
   >
@@ -48,18 +51,29 @@ const metadata = {
     ]}
   />
 
-  <!-- CallToAction Widget -->
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Devenir partenaire',
-        href: getPermalink('/partenaires'),
-      },
-    ]}
-  >
-    <Fragment slot="title"> Soutenir un athlète de haut niveau </Fragment>
+  <!-- Bio Widget -->
+  <section id="bio">
+    <Bio />
+  </section>
 
-    <Fragment slot="subtitle"> Associez votre image à un projet sportif ambitieux et authentique. </Fragment>
-  </CallToAction>
+  <!-- Calendar Widget -->
+  <section id="calendrier">
+    <Calendar />
+  </section>
+
+  <!-- Results Widget -->
+  <section id="resultats">
+    <Results />
+  </section>
+
+  <!-- Partners Widget -->
+  <section id="partenaires">
+    <Partners />
+  </section>
+
+  <!-- Contact Widget -->
+  <section id="contact">
+    <ContactSection />
+  </section>
+
 </Layout>

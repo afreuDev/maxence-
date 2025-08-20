@@ -1,0 +1,43 @@
+---
+import { getEntry } from 'astro:content';
+
+const athlete = await getEntry('athlete', 'maxence-mey');
+if (!athlete) {
+  throw new Error("L'entrée de l'athlète n'a pas été trouvée.");
+}
+
+const { data } = athlete;
+
+const bioData = [
+  { label: 'Naissance', value: data.naissance },
+  { label: 'Résidence', value: data.residence },
+  { label: 'Profession', value: data.role },
+  { label: 'Club', value: data.clubs?.join(', ') },
+  { label: 'Entraîneur', value: data.entraineur },
+  { label: 'Hobbies', value: data.hobbies?.join(', ') },
+  { label: 'Taille', value: data.taille },
+  { label: 'Poids', value: data.poids },
+  { label: 'Pointure', value: data.pointure },
+  { label: 'Envergure', value: data.envergure },
+  { label: 'Largeur d\'épaules', value: data.largeur_epaules },
+  { label: 'Masse graisseuse', value: data.masse_graisseuse },
+  { label: 'Volume cardiaque', value: data.volume_cardiaque },
+  { label: 'Pouls repos/max', value: data.pouls_repos_max },
+];
+---
+
+<section class="py-16 sm:py-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-center text-default dark:text-white mb-12">BIO</h2>
+    <div class="max-w-2xl mx-auto">
+      <dl class="space-y-4">
+        {bioData.map(item => item.value && (
+          <div class="flex">
+            <dt class="w-1/3 font-medium text-muted">{item.label}</dt>
+            <dd class="w-2/3 text-default">{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>
