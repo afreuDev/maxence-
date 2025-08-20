@@ -1,0 +1,40 @@
+---
+/**
+ * Bio minimaliste : Intro courte + Citation + Facts (fiche)
+ * Props attendues : data.bio.intro, data.bio.quote, data.bio.quoteAuthor, data.bio.facts[]
+ */
+const { data } = Astro.props;
+const b = data?.bio ?? {};
+---
+
+<section id="bio" aria-labelledby="bio-title" class="mx-auto max-w-7xl px-4 py-16 lg:py-20">
+  <div class="mx-auto max-w-3xl">
+    <h2 id="bio-title" class="text-2xl lg:text-3xl font-semibold">À propos</h2>
+
+    {b.intro && <p class="mt-4 text-base leading-7 text-gray-700 dark:text-gray-300">{b.intro}</p>}
+
+    {
+      b.quote && (
+        <figure class="mt-6 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 bg-gray-50/60 dark:bg-gray-800/40">
+          <blockquote class="text-lg italic text-gray-900 dark:text-gray-100">“{b.quote}”</blockquote>
+          <figcaption class="mt-3 text-sm text-gray-500">— {b.quoteAuthor ?? 'Maxence Mey'}</figcaption>
+        </figure>
+      )
+    }
+
+    {
+      Array.isArray(b.facts) && b.facts.length > 0 && (
+        <div class="mt-8 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-gray-900">
+          <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {b.facts.map((f: { label: string; value: string }) => (
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-sm text-gray-500 dark:text-gray-400">{f.label}</dt>
+                <dd class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )
+    }
+  </div>
+</section>
