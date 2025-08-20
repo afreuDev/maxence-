@@ -1,9 +1,40 @@
 ---
+import Brands from '~/components/widgets/Brands.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const images = [
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+  {
+    src: 'https://placehold.co/150x50/e2e8f0/e2e8f0?text=LOGO',
+    alt: 'Logo Partenaire',
+  },
+];
 ---
 
-<Content title="Devenir Partenaire" subtitle="Associez votre marque aux valeurs du sport de haut niveau">
+<Brands title="Ils me font confiance" images={images} />
+
+<div class="py-12">
+  <Content title="Devenir Partenaire" subtitle="Associez votre marque aux valeurs du sport de haut niveau">
     <Fragment slot="content">
       <p class="text-lg mb-4">
         Soutenir Maxence, c'est s'associer à un projet sportif ambitieux porté par un athlète passionné et déterminé.
@@ -18,17 +49,18 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
         <li>Création de contenu authentique et inspirant.</li>
       </ul>
     </Fragment>
-</Content>
+  </Content>
+</div>
 
 <CallToAction
-actions={[
+  actions={[
     {
-    variant: 'primary',
-    text: 'Discutons-en',
-    href: '#contact',
+      variant: 'primary',
+      text: 'Discutons-en',
+      href: '#contact',
     },
-]}
+  ]}
 >
-    <Fragment slot="title"> Intéressé par une collaboration ? </Fragment>
-    <Fragment slot="subtitle"> Contactez Maxence pour discuter des opportunités de partenariat. </Fragment>
+  <Fragment slot="title"> Intéressé par une collaboration ? </Fragment>
+  <Fragment slot="subtitle"> Contactez Maxence pour discuter des opportunités de partenariat. </Fragment>
 </CallToAction>

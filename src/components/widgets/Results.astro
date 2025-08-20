@@ -4,6 +4,13 @@ import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 
 const results = (await getCollection('results')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const getPodiumClass = (rank: number) => {
+  if (rank === 1) return 'bg-yellow-100 text-yellow-800 ring-1 ring-inset ring-yellow-600/30';
+  if (rank === 2) return 'bg-slate-100 text-slate-800 ring-1 ring-inset ring-slate-600/30';
+  if (rank === 3) return 'bg-amber-100 text-amber-800 ring-1 ring-inset ring-amber-700/30';
+  return 'bg-gray-100 text-gray-800 ring-1 ring-inset ring-gray-500/10';
+};
 ---
 
 <WidgetWrapper>
@@ -13,50 +20,58 @@ const results = (await getCollection('results')).sort((a, b) => b.data.date.valu
       Retrouvez ici le palmarès de Maxence Mey sur les courses nationales et internationales.
     </Fragment>
   </Headline>
-  <div class="relative not-prose">
-    <ul class="space-y-4">
-      <li
-        class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 font-bold text-sm text-gray-500 dark:text-gray-400 uppercase"
-      >
-        <span class="col-span-1 sm:col-span-1">Date</span>
-        <span class="col-span-1 sm:col-span-2">Course</span>
-        <span class="col-span-1 sm:col-span-1">Classement</span>
-        <span class="col-span-1 sm:col-span-1">Temps</span>
-      </li>
-      {
-        results.map((result) => (
-          <li class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-3 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-            <span class="font-medium">
-              {new Date(result.data.date).toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
-            <span class="font-bold">
-              {result.data.title} ({result.data.distance})
-            </span>
-            <span class="font-bold">
-              {result.data.rank}
-              {result.data.rank === 1 && '🏆'}
-              {result.data.rank > 1 && result.data.rank <= 3 && '🥈'}
-            </span>
-            <span class="font-mono">{result.data.time}</span>
-            <div>
-              {result.data.source && (
-                <a
-                  class="text-primary-600 hover:underline text-sm"
-                  href={result.data.source[0]}
-                  target="_blank"
-                  rel="noopener noreferrer"
+  <div class="relative not-prose overflow-x-auto">
+    <table class="w-full text-left">
+      <thead class="text-sm text-gray-500 dark:text-gray-400 uppercase">
+        <tr>
+          <th class="px-4 py-3 text-left w-[110px]">Date</th>
+          <th class="px-4 py-3 text-left min-w-[180px]">Course</th>
+          <th class="px-4 py-3 text-left w-[70px]">Dist.</th>
+          <th class="px-4 py-3 text-left w-[90px]">Classt.</th>
+          <th class="px-4 py-3 text-left w-[100px]">Temps</th>
+          <th class="px-4 py-3 text-left">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          results.map((result) => (
+            <tr class="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
+              <td class="px-4 py-3 font-medium">
+                {new Date(result.data.date).toLocaleDateString('fr-FR', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </td>
+              <td class="px-4 py-3 font-bold">{result.data.title}</td>
+              <td class="px-4 py-3">{result.data.distance}</td>
+              <td class="px-4 py-3">
+                <span
+                  class:list={[
+                    'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium',
+                    getPodiumClass(result.data.rank),
+                  ]}
                 >
-                  Source »
-                </a>
-              )}
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+                  {result.data.rank}
+                </span>
+              </td>
+              <td class="px-4 py-3 font-mono">{result.data.time}</td>
+              <td class="px-4 py-3">
+                {result.data.source && (
+                  <a
+                    class="text-primary-600 hover:underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    href={result.data.source[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Source
+                  </a>
+                )}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
   </div>
 </WidgetWrapper>

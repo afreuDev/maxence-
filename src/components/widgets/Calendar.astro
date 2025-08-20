@@ -1,39 +1,71 @@
 ---
-import Headline from '~/components/ui/Headline.astro';
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import calendarData from '~/content/calendar/2025.yaml';
+import type { Race } from '~/types';
 
 const { upcoming } = calendarData;
 
-interface Race {
-  link: string;
-  race: string;
-  distance: string;
-  date: string;
-}
+// 1. Filter out past races and sort to find the next one
+const today = new Date();
+today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
+
+const futureRaces = upcoming
+  .map((race: Omit<Race, 'date'> & { date: string }) => ({ ...race, date: new Date(race.date) }))
+  .filter((race: Race) => race.date.getTime() >= today.getTime())
+  .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
+
+const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+
+// 2. Calculate the countdown
+const diff = nextRace ? Math.ceil((nextRace.date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
+const jLabel = diff !== null ? (diff > 0 ? `J-${diff}` : diff === 0 ? `Jour J` : `J+${Math.abs(diff)}`) : '—';
+
+// 3. Format date for display
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('fr-FR', {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+const race: Race | undefined = nextRace;
 ---
 
-<WidgetWrapper>
-  <Headline>
-    <Fragment slot="title">Calendrier & Objectifs</Fragment>
-    <Fragment slot="subtitle"> Les prochaines courses au programme de Maxence. </Fragment>
-  </Headline>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {
-      upcoming.map((race: Race) => (
-        <a
-          href={race.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block p-6 rounded-lg border dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition text-center"
-        >
-          <h3 class="font-bold text-2xl mb-2">{race.race}</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-1">{race.distance}</p>
-          <p class="font-mono text-lg">
-            {new Date(race.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </p>
-        </a>
-      ))
-    }
-  </div>
-</WidgetWrapper>
+{
+  race && (
+    <section aria-labelledby="next-race">
+      <div class="mx-auto max-w-7xl px-4">
+        <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div
+            class="h-12 w-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 border text-sm font-semibold"
+            aria-label={`Échéance ${jLabel}`}
+          >
+            {jLabel}
+          </div>
+          <div class="flex-1">
+            <h3 id="next-race" class="text-xl font-semibold">
+              {race.race}
+            </h3>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              {formatDate(race.date)} • {race.distance}
+            </p>
+            <a
+              href="/calendrier"
+              class="mt-3 inline-flex text-primary-600 hover:underline rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Voir le calendrier complet
+            </a>
+          </div>
+          <a
+            href={race.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center rounded-xl px-4 py-2 font-medium bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          >
+            Découvrir la course
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}

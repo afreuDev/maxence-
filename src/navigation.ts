@@ -5,20 +5,8 @@ export const headerData = {
       href: '/',
     },
     {
-      text: 'Bio',
-      href: '#bio',
-    },
-    {
       text: 'Calendrier',
       href: '#calendrier',
-    },
-    {
-      text: 'Résultats',
-      href: '#resultats',
-    },
-    {
-      text: 'Partenaires',
-      href: '#partenaires',
     },
     {
       text: 'Contact',

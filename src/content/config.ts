@@ -105,6 +105,18 @@ const athleteCollection = defineCollection({
       email: z.string().email(),
     }),
     cover: z.string(),
+    naissance: z.string().optional(),
+    residence: z.string().optional(),
+    entraineur: z.string().optional(),
+    hobbies: z.array(z.string()).optional(),
+    taille: z.string().optional(),
+    poids: z.string().optional(),
+    pointure: z.number().optional(),
+    envergure: z.string().optional(),
+    largeur_epaules: z.string().optional(),
+    masse_graisseuse: z.string().optional(),
+    volume_cardiaque: z.string().optional(),
+    pouls_repos_max: z.string().optional(),
   }),
 });
 

@@ -61,6 +61,8 @@ export interface MetaData {
 
   openGraph?: MetaDataOpenGraph;
   twitter?: MetaDataTwitter;
+
+  nextRace?: Race;
 }
 
 export interface MetaDataRobots {
@@ -89,13 +91,21 @@ export interface MetaDataTwitter {
 }
 
 export interface Image {
-  src: string;
+  src: ImageMetadata | string;
   alt?: string;
 }
 
 export interface Video {
   src: string;
   type?: string;
+}
+
+export interface Race {
+  race: string;
+  date: Date;
+  distance: string;
+  link: string;
+  city?: string;
 }
 
 export interface Widget {
@@ -216,7 +226,7 @@ export interface Form {
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   content?: string;
   actions?: string | CallToAction[];
-  image?: string | unknown;
+  image?: Image;
 }
 
 export interface Team extends Omit<Headline, 'classes'>, Widget {
