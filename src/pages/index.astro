@@ -2,7 +2,8 @@
 import Layout from '~/layouts/LandingLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
-import Bio from '~/components/widgets/Bio.astro';
+import BioMinimal from '~/components/home/BioMinimal.astro';
+import * as athlete from '~/content/athlete/maxence-mey.md';
 import Calendar from '~/components/widgets/Calendar.astro';
 import Results from '~/components/widgets/Results.astro';
 import Partners from '~/components/widgets/Partners.astro';
@@ -73,10 +74,8 @@ const metadata: MetaData = {
     ]}
   />
 
-  <!-- Bio Widget -->
-  <section id="bio">
-    <Bio />
-  </section>
+  <!-- BIO MINIMALISTE (remplace l’ancienne section bio) -->
+  <BioMinimal data={athlete.frontmatter} />
 
   <!-- Calendar Widget -->
   <section id="calendrier">

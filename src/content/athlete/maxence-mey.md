@@ -1,4 +1,17 @@
 ---
+bio:
+  intro: 'Formé en natation, Maxence s’impose sur le half (70.3) avec une approche offensive à vélo et régulière en course à pied.'
+  quote: 'Chercher la limite, course après course, en restant simple et focalisé.'
+  quoteAuthor: 'Maxence Mey'
+  facts:
+    - label: 'Spécialité'
+      value: 'Middle (70.3)'
+    - label: 'Point fort'
+      value: 'Vélo / gestion d’effort'
+    - label: 'Palmarès'
+      value: 'Vainqueur IM 70.3 Tanger 2023, podiums Challenge 2025'
+    - label: 'Club / Team'
+      value: 'Munegu Triathlon (2024), KEFORMA team'
 title: 'Maxence Mey'
 role: 'Triathlète professionnel – Middle distance'
 team: ['KEFORMA team']
