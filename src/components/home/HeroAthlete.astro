@@ -1,0 +1,43 @@
+---
+const { title, role, summary, cover, socials } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden" aria-label="Présentation de l'athlète">
+  <img src={cover} alt={`Photo de ${title}`} class="absolute inset-0 h-full w-full object-cover" />
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+
+  <div class="relative">
+    <div class="mx-auto max-w-7xl px-4 py-28 sm:py-36 lg:py-44">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white">{title}</h1>
+        <p class="mt-3 text-lg sm:text-xl text-white/90">{role}</p>
+        <p class="mt-6 text-base sm:text-lg text-white/80">{summary}</p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          {
+            socials?.instagram && (
+              <a
+                href={socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center rounded-xl px-5 py-3 font-medium bg-white text-gray-900 hover:bg-gray-100 transition"
+              >
+                Suivre sur Instagram
+              </a>
+            )
+          }
+          {
+            socials?.email && (
+              <a
+                href={socials.email}
+                class="inline-flex items-center rounded-xl px-5 py-3 font-medium bg-white/10 text-white ring-1 ring-white/30 hover:bg-white/15 transition"
+              >
+                Contact
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

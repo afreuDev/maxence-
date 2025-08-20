@@ -1,12 +1,12 @@
 ---
 title: 'Maxence Mey'
-role: 'Triathlète professionnel – Middle distance'
-team: ['KEFORMA team']
-clubs: ['Munegu Triathlon (2024)']
+role: 'Triathlète professionnel — Middle distance'
+location: 'France'
 socials:
   instagram: 'https://instagram.com/maxencemeytri'
-  email: 'maxencemey431@gmail.com'
-cover: '~/assets/images/hero-maxence.jpg'
+  email: 'mailto:contact@example.com'
+cover: '/assets/hero/maxence-hero.jpg'
+summary: 'Vainqueur IM 70.3 Tanger 2023, podiums Challenge 2025. Spécialisé half distance.'
 ---
 
-Formé en natation de haut niveau, Maxence a opéré une transition réussie vers le triathlon longue distance. Spécialiste des formats 70.3, il allie une base solide en natation à une puissance croissante en vélo et course à pied. Son approche, axée sur le plaisir et la persévérance, lui a permis de s'imposer rapidement sur le circuit, avec une victoire notable à l'IRONMAN 70.3 de Tanger.
+Ancien nageur, Maxence est passé au triathlon longue distance avec une progression régulière sur les formats middle (70.3). Il s’entraîne pour viser des podiums sur le circuit européen.

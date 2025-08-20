@@ -1,0 +1,80 @@
+---
+interface ResultModule {
+  frontmatter: {
+    date: string;
+    title: string;
+    distance: string;
+    rank: number;
+    time?: string;
+    source?: string[];
+  };
+}
+
+interface Props {
+  items: ResultModule[];
+}
+
+const { items = [] } = Astro.props;
+
+const podiumClass = (rank: number) => {
+  if (rank === 1) return 'bg-yellow-50 text-yellow-700 ring-yellow-600/20';
+  if (rank === 2) return 'bg-gray-50 text-gray-700 ring-gray-600/20';
+  if (rank === 3) return 'bg-amber-50 text-amber-700 ring-amber-600/20';
+  return '';
+};
+---
+
+<section id="resultats" class="mx-auto max-w-7xl px-4 py-10">
+  <h2 class="text-2xl font-semibold">Derniers résultats</h2>
+  <div class="mt-6 overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-800">
+    <table class="min-w-full text-sm">
+      <thead class="bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300">
+        <tr>
+          <th class="px-4 py-3 text-left">Date</th>
+          <th class="px-4 py-3 text-left">Course</th>
+          <th class="px-4 py-3 text-left">Dist.</th>
+          <th class="px-4 py-3 text-left">Classt.</th>
+          <th class="px-4 py-3 text-left">Temps</th>
+          <th class="px-4 py-3 text-left">Source</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+        {
+          items.map((it) => {
+            const s = it.frontmatter;
+            const date = new Date(s.date).toLocaleDateString('fr-FR');
+            return (
+              <tr>
+                <td class="px-4 py-3">{date}</td>
+                <td class="px-4 py-3">{s.title}</td>
+                <td class="px-4 py-3">{s.distance}</td>
+                <td class="px-4 py-3">
+                  <span
+                    class={`inline-flex items-center rounded-full px-2 py-0.5 text-xs ring-1 ring-inset ${podiumClass(s.rank)}`}
+                  >
+                    #{s.rank}
+                  </span>
+                </td>
+                <td class="px-4 py-3">{s.time ?? '—'}</td>
+                <td class="px-4 py-3">
+                  {s.source?.[0] ? (
+                    <a
+                      href={s.source[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary-600 hover:underline"
+                    >
+                      Lien
+                    </a>
+                  ) : (
+                    '—'
+                  )}
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

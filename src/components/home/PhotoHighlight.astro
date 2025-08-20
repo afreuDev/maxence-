@@ -1,0 +1,8 @@
+---
+const { src, caption = '' } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12">
+  <img src={src} alt="Photo mise en avant" class="w-full aspect-[16/9] object-cover rounded-2xl" />
+  {caption && <p class="mt-3 text-xs text-gray-500">{caption}</p>}
+</section>
