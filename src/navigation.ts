@@ -1,41 +1,31 @@
-import { getPermalink } from './utils/permalinks';
-
 export const headerData = {
   links: [
     {
       text: 'Accueil',
-      href: getPermalink('/'),
+      href: '/',
     },
     {
       text: 'Bio',
-      href: getPermalink('/bio'),
+      href: '#bio',
     },
     {
       text: 'Calendrier',
-      href: getPermalink('/calendrier'),
+      href: '#calendrier',
     },
     {
       text: 'Résultats',
-      href: getPermalink('/resultats'),
-    },
-    {
-      text: 'Galerie',
-      href: getPermalink('/galerie'),
+      href: '#resultats',
     },
     {
       text: 'Partenaires',
-      href: getPermalink('/partenaires'),
-    },
-    {
-      text: 'Presse',
-      href: getPermalink('/presse'),
+      href: '#partenaires',
     },
     {
       text: 'Contact',
-      href: getPermalink('/contact'),
+      href: '#contact',
     },
   ],
-  actions: [{ text: 'Contact', href: getPermalink('/contact'), target: '_self' }],
+  actions: [{ text: 'Contact', href: '#contact', target: '_self' }],
 };
 
 export const footerData = {

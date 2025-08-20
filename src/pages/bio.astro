@@ -1,32 +1,16 @@
 ---
-import { getEntry, render } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
+import Bio from '~/components/widgets/Bio.astro';
 
 const metadata = {
   title: 'Biographie',
   description: 'Le parcours de Maxence Mey, de la natation au triathlon professionnel.',
 };
-
-const athlete = await getEntry('athlete', 'maxence-mey');
-if (!athlete) {
-  throw new Error("L'entrée de l'athlète n'a pas été trouvée.");
-}
-const { Content: AthleteContent } = await render(athlete);
 ---
 
 <Layout metadata={metadata}>
-  <Content
-    title={athlete.data.title}
-    subtitle={athlete.data.role}
-    image={{ src: athlete.data.cover, alt: athlete.data.title }}
-  >
-    <Fragment slot="content">
-      <div class="prose dark:prose-invert">
-        <AthleteContent />
-      </div>
-    </Fragment>
-  </Content>
+  <Bio />
 
   <Content title="Philosophie" subtitle="Le plaisir comme moteur">
     <Fragment slot="content">
