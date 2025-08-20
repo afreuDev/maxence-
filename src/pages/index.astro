@@ -10,6 +10,7 @@ import Partners from '~/components/widgets/Partners.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
 import calendarData from '~/content/calendar/2025.yaml';
 import type { Race, MetaData } from '~/types';
+import heroImageFile from '~/assets/images/hero-maxence.jpg';
 
 // Find next race for SEO metadata
 const { upcoming } = calendarData;
@@ -22,8 +23,10 @@ const futureRaces = upcoming
 const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
 
 const heroImage = {
-  src: 'https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  src: heroImageFile,
   alt: 'Maxence Mey triathlète',
+  width: heroImageFile.width,
+  height: heroImageFile.height,
 };
 
 const metadata: MetaData = {
@@ -33,7 +36,7 @@ const metadata: MetaData = {
   openGraph: {
     images: [
       {
-        url: heroImage.src,
+        url: '~/assets/images/hero-maxence.jpg',
       },
     ],
   },

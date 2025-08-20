@@ -15,13 +15,13 @@ const {
     {
       image && (
         <img
-          src={typeof image.src === 'string' ? image.src : ''}
+          src={typeof image.src === 'string' ? image.src : image.src.src}
           alt={image.alt || ''}
           class="absolute inset-0 object-cover w-full h-full"
           loading="eager"
           fetchpriority="high"
-          width={1800}
-          height={1012}
+          width={image.width || 1800}
+          height={image.height || 1012}
         />
       )
     }
