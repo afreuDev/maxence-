@@ -1,0 +1,6 @@
+{
+  "partners": [
+    { "name": "KEFORMA", "logo": "/assets/partners/kefora.svg", "url": "https://example.com" },
+    { "name": "Munegu Triathlon", "logo": "/assets/partners/munegu.svg", "url": "https://example.com" }
+  ]
+}

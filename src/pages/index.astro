@@ -1,65 +1,96 @@
 ---
-import { getPermalink } from '~/utils/permalinks';
+import { getEntry } from 'astro:content';
 
-import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import HeroAthlete from '~/components/home/HeroAthlete.astro';
+import KpiStrip from '~/components/home/KpiStrip.astro';
+import NextRaceCard from '~/components/home/NextRaceCard.astro';
+import ResultsTable from '~/components/home/ResultsTable.astro';
+import PhotoHighlight from '~/components/home/PhotoHighlight.astro';
+import PartnersMarquee from '~/components/home/PartnersMarquee.astro';
+import PressTeasers from '~/components/home/PressTeasers.astro';
+import ContactCta from '~/components/home/ContactCta.astro';
+import Layout from '~/layouts/Layout.astro';
+
+/* Types */
+interface ResultModule {
+  frontmatter: {
+    date: string;
+    title: string;
+    distance: string;
+    rank: number;
+    time?: string;
+    source?: string[];
+  };
+}
+interface Race {
+  race: string;
+  date: string;
+  distance: string;
+  city: string;
+  link: string;
+}
+interface MappedRace extends Race {
+  _d: Date;
+}
+
+/* Contenus */
+import partners from '~/content/partners.json';
+import calendar from '~/content/calendar/2025.json';
+
+const athleteEntry = await getEntry('athlete', 'maxence-mey');
+if (!athleteEntry) {
+  throw new Error("Athlete entry 'maxence-mey' not found!");
+}
+const athlete = athleteEntry.data;
+
+/* Charger les résultats (Markdown “eager”) */
+const resultMods = Object.values(import.meta.glob('/src/content/results/*.md', { eager: true })) as ResultModule[];
+const results = resultMods
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 6);
+
+/* Prochaine course : premier upcoming >= today (Europe/Paris) */
+const today = new Date();
+const next =
+  calendar.upcoming
+    .map((x: Race): MappedRace => ({ ...x, _d: new Date(x.date) }))
+    .filter((x: MappedRace) => x._d >= today)
+    .sort((a: MappedRace, b: MappedRace) => a._d.getTime() - b._d.getTime())[0] ?? calendar.upcoming[0];
+
+const kpis = [
+  { label: 'Victoires', value: '—' },
+  { label: 'Podiums', value: '—' },
+  { label: 'Record Half', value: '3h51' },
+  { label: 'Classement PTO', value: '~270' },
+];
 
 const metadata = {
-  title: 'Accueil',
+  title: 'Maxence Mey – Triathlète',
+  description:
+    'Portfolio officiel de Maxence Mey, triathlète professionnel middle distance. Résultats, calendrier, partenaires, contact.',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget -->
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Suivre sur Instagram',
-        href: 'https://instagram.com/maxencemeytri',
-        target: '_blank',
-        icon: 'tabler:brand-instagram',
-      },
-      { text: 'Contact', href: getPermalink('/contact') },
-    ]}
-    image={{
-      src: 'https://cdn-s-www.leprogres.fr/images/3DC4DB45-9398-49F1-B5CA-F101512ACCAC/NW_raw/maxence-mey-vainqueur-de-la-course-reine-photo-patrick-bonjour-1749407298.jpg',
-      alt: 'Maxence Mey triathlète',
-    }}
-  >
-    <Fragment slot="title"> Maxence Mey </Fragment>
-
-    <Fragment slot="subtitle">
-      <span class="block sm:inline">Triathlète professionnel</span>
-      <span class="hidden sm:inline"> · </span>
-      <span class="block sm:inline">Middle Distance / 70.3</span>
-    </Fragment>
-  </Hero>
-
-  <!-- Stats Widget -->
-  <Stats
-    stats={[
-      { title: 'Victoire', amount: 'IM 70.3 Tanger 2023' },
-      { title: 'Podium', amount: 'Challenge Turku 2025' },
-      { title: 'Top 10', amount: 'Challenge Gdańsk 2025' },
-      { title: 'Club', amount: 'KEFORMA / Munegu' },
-    ]}
+  <HeroAthlete
+    title={athlete.title}
+    role={athlete.role}
+    summary={athlete.summary}
+    cover={athlete.cover}
+    socials={athlete.socials}
   />
 
-  <!-- CallToAction Widget -->
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Devenir partenaire',
-        href: getPermalink('/partenaires'),
-      },
-    ]}
-  >
-    <Fragment slot="title"> Soutenir un athlète de haut niveau </Fragment>
+  <KpiStrip kpis={kpis} />
 
-    <Fragment slot="subtitle"> Associez votre image à un projet sportif ambitieux et authentique. </Fragment>
-  </CallToAction>
+  <NextRaceCard race={next} />
+
+  <ResultsTable items={results} />
+
+  <PhotoHighlight src="/assets/highlight.jpg" caption="Crédit : Organisateur / Photographe" />
+
+  <PartnersMarquee items={partners.partners} />
+
+  <PressTeasers />
+
+  <ContactCta instagram={athlete.socials?.instagram} email={athlete.socials?.email} />
 </Layout>

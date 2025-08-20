@@ -4,12 +4,10 @@ date: 2025-07-27
 distance: 'Middle'
 rank: 3
 time: '3:51:09'
-swim: '—'
-bike: '—'
-run: '—'
-source:
-  - 'https://live.ultimate.dk/desktop/front/index.php?eventid=6760'
-tags: ['pro', 'podium']
+swim: '25:41'
+bike: '2:08:28'
+run: '1:15:37'
+source: ['https://live.ultimate.dk/']
 ---
 
-Podium à Turku (Challenge Family). 3ème place en 3:51:09.
+Podium sur un parcours vélo roulant et un semi solide.

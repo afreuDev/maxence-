@@ -1,0 +1,40 @@
+---
+const { race } = Astro.props; // {race,date,distance,city,link}
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+{
+  race && (
+    <section>
+      <div class="mx-auto max-w-7xl px-4">
+        <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div class="h-12 w-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-sm font-semibold">
+            J+{/* décor, pas de logique */}
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold">{race.race}</h3>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              {formatDate(race.date)} • {race.distance} • {race.city}
+            </p>
+            <div class="mt-3 flex gap-3">
+              <a href="/calendrier" class="text-primary-600 hover:underline">
+                Voir le calendrier complet
+              </a>
+            </div>
+          </div>
+          <div>
+            <a
+              href={race.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center rounded-xl px-4 py-2 font-medium bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90 transition"
+            >
+              Découvrir la course
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

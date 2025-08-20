@@ -1,0 +1,40 @@
+---
+type PressModule = {
+  frontmatter: {
+    title: string;
+    source: string;
+    date: string;
+    url: string;
+  };
+};
+
+/** Charge les 3 premiers items presse si présents */
+const pressMods = Object.values(import.meta.glob('/src/content/press/*.md', { eager: true })) as PressModule[];
+const items = pressMods.slice(0, 3).map((m) => m.frontmatter);
+---
+
+{
+  items.length > 0 && (
+    <section class="mx-auto max-w-7xl px-4 py-10">
+      <h2 class="text-2xl font-semibold">Presse & médias</h2>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {items.map((p) => (
+          <article class="rounded-2xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-sm transition">
+            <h3 class="text-base font-semibold">{p.title}</h3>
+            <p class="mt-2 text-sm text-gray-500">
+              {p.source} — {new Date(p.date).toLocaleDateString('fr-FR')}
+            </p>
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-3 inline-flex text-primary-600 hover:underline"
+            >
+              Lire
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
