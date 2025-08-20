@@ -1,15 +1,13 @@
 ---
-import { Icon } from 'astro-icon/components';
 import type { Brands as Props } from '~/types';
-
-import Image from '~/components/common/Image.astro';
+import { Image } from 'astro:assets';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+
 const {
   title = '',
   subtitle = '',
   tagline = '',
-  icons = [],
   images = [],
   id,
   isDark = false,
@@ -18,21 +16,31 @@ const {
 } = Astro.props;
 ---
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
 
-  <div class="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 lg:gap-x-24">
-    {icons && icons.map((icon) => <Icon name={icon} class="py-3 lg:py-5 w-12 h-auto mx-auto sm:mx-0 text-gray-500" />)}
+  <ul class="mx-auto px-4 py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-10">
     {
       images &&
-        images.map(
-          (image) =>
-            image.src && (
-              <div class="flex justify-center col-span-1 my-2 lg:my-4 py-1 px-3 rounded-md dark:bg-gray-200">
-                <Image src={image.src} alt={image.alt || ''} class="max-h-12" width={120} height={48} layout="fixed" />
-              </div>
-            )
-        )
+        images.map((image) => (
+          <li class="flex items-center justify-center">
+            <a
+              href="#"
+              class="opacity-70 hover:opacity-100 transition will-change-transform hover:scale-[1.02] rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            >
+              {typeof image.src === 'string' ? (
+                <img src={image.src} alt={image.alt || ''} class="h-10 sm:h-12 object-contain w-full" loading="lazy" />
+              ) : (
+                <Image
+                  src={image.src}
+                  alt={image.alt || ''}
+                  class="h-10 sm:h-12 object-contain w-full"
+                  loading="lazy"
+                />
+              )}
+            </a>
+          </li>
+        ))
     }
-  </div>
+  </ul>
 </WidgetWrapper>

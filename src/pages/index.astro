@@ -8,9 +8,30 @@ import Results from '~/components/widgets/Results.astro';
 import Partners from '~/components/widgets/Partners.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
 import heroImage from '~/assets/images/hero-maxence.jpg';
+import calendarData from '~/content/calendar/2025.yaml';
+import type { Race, MetaData } from '~/types';
 
-const metadata = {
+// Find next race for SEO metadata
+const { upcoming } = calendarData;
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const futureRaces = upcoming
+  .map((race: Omit<Race, 'date'> & { date: string }) => ({ ...race, date: new Date(race.date) }))
+  .filter((race: Race) => race.date.getTime() >= today.getTime())
+  .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
+const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+
+const metadata: MetaData = {
   title: 'Maxence Mey - Triathlète Professionnel',
+  description: 'Résultats, calendrier, partenaires, et contact de Maxence Mey, triathlète professionnel français.',
+  nextRace: nextRace,
+  openGraph: {
+    images: [
+      {
+        url: heroImage.src,
+      },
+    ],
+  },
 };
 ---
 
@@ -75,5 +96,4 @@ const metadata = {
   <section id="contact">
     <ContactSection />
   </section>
-
 </Layout>

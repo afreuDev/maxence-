@@ -5,13 +5,14 @@ import { AstroSeo } from '@astrolib/seo';
 import type { Props as AstroSeoProps } from '@astrolib/seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
-import type { MetaData } from '~/types';
+import type { MetaData, Race } from '~/types';
 import { getCanonical } from '~/utils/permalinks';
 
 import { adaptOpenGraphImages } from '~/utils/images';
 
 export interface Props extends MetaData {
   dontUseTitleTemplate?: boolean;
+  nextRace?: Race;
 }
 
 const {
@@ -22,7 +23,32 @@ const {
   description,
   openGraph = {},
   twitter = {},
+  nextRace,
 } = Astro.props;
+
+const jsonld: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Maxence Mey',
+    jobTitle: 'Professional Triathlete',
+    sport: 'Triathlon',
+    url: 'https://maxence-gules.vercel.app/',
+    sameAs: ['https://instagram.com/maxencemeytri'],
+  },
+];
+
+if (nextRace) {
+  jsonld.push({
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: nextRace.race,
+    sport: 'Triathlon',
+    startDate: nextRace.date.toISOString().split('T')[0],
+    location: { '@type': 'Place', name: nextRace.city || 'N/A' },
+    url: nextRace.link,
+  });
+}
 
 const seoProps: AstroSeoProps = merge(
   {
@@ -65,4 +91,6 @@ const seoProps: AstroSeoProps = merge(
 );
 ---
 
-<AstroSeo {...{ ...seoProps, openGraph: await adaptOpenGraphImages(seoProps?.openGraph, Astro.site) }} />
+<AstroSeo
+  {...{ ...seoProps, openGraph: await adaptOpenGraphImages(seoProps?.openGraph, Astro.site), jsonld: jsonld }}
+/>

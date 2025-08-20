@@ -19,7 +19,7 @@ const bioData = [
   { label: 'Poids', value: data.poids },
   { label: 'Pointure', value: data.pointure },
   { label: 'Envergure', value: data.envergure },
-  { label: 'Largeur d\'épaules', value: data.largeur_epaules },
+  { label: "Largeur d'épaules", value: data.largeur_epaules },
   { label: 'Masse graisseuse', value: data.masse_graisseuse },
   { label: 'Volume cardiaque', value: data.volume_cardiaque },
   { label: 'Pouls repos/max', value: data.pouls_repos_max },
@@ -31,12 +31,17 @@ const bioData = [
     <h2 class="text-2xl font-bold text-center text-default dark:text-white mb-12">BIO</h2>
     <div class="max-w-2xl mx-auto">
       <dl class="space-y-4">
-        {bioData.map(item => item.value && (
-          <div class="flex">
-            <dt class="w-1/3 font-medium text-muted">{item.label}</dt>
-            <dd class="w-2/3 text-default">{item.value}</dd>
-          </div>
-        ))}
+        {
+          bioData.map(
+            (item) =>
+              item.value && (
+                <div class="flex">
+                  <dt class="w-1/3 font-medium text-muted">{item.label}</dt>
+                  <dd class="w-2/3 text-default">{item.value}</dd>
+                </div>
+              )
+          )
+        }
       </dl>
     </div>
   </div>
