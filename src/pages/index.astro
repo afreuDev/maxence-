@@ -70,10 +70,9 @@ const metadata: MetaData = {
   <!-- Stats Widget -->
   <Stats
     stats={[
-      { title: 'Victoire', amount: 'IM 70.3 Tanger 2023' },
-      { title: 'Podium', amount: 'Challenge Turku 2025' },
-      { title: 'Top 10', amount: 'Challenge Gdańsk 2025' },
-      { title: 'Club', amount: 'KEFORMA / Munegu' },
+      { title: 'Victoire', amount: 'IM 70.3 Tanger' },
+      { title: 'Podium', amount: 'Challenge Turku' },
+      { title: 'Top 10', amount: 'Challenge Gdańsk' },
     ]}
   />
 
@@ -81,7 +80,7 @@ const metadata: MetaData = {
   <BioMinimal data={athlete.frontmatter} />
 
   <!-- Calendar Widget -->
-  <section id="calendrier">
+  <section id="calendrier" class="py-12 md:py-16 lg:py-24">
     <Calendar />
   </section>
 

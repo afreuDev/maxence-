@@ -98,8 +98,8 @@ const athleteCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     role: z.string(),
-    team: z.array(z.string()),
-    clubs: z.array(z.string()),
+    team: z.array(z.string()).optional(),
+    clubs: z.array(z.string()).optional(),
     socials: z.object({
       instagram: z.string().url(),
       email: z.string().email(),

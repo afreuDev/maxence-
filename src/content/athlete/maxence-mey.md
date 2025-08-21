@@ -10,12 +10,8 @@ bio:
       value: 'Vélo / gestion d’effort'
     - label: 'Palmarès'
       value: 'Vainqueur IM 70.3 Tanger 2023, podiums Challenge 2025'
-    - label: 'Club / Team'
-      value: 'Munegu Triathlon (2024), KEFORMA team'
 title: 'Maxence Mey'
 role: 'Triathlète professionnel – Middle distance'
-team: ['KEFORMA team']
-clubs: ['Munegu Triathlon (2024)']
 socials:
   instagram: 'https://instagram.com/maxencemeytri'
   email: 'maxencemey431@gmail.com'
