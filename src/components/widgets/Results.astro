@@ -29,6 +29,7 @@ const podiumClass = (rank) => {
           <th class="px-4 py-3 text-left w-[70px]">Dist.</th>
           <th class="px-4 py-3 text-left w-[90px]">Classt.</th>
           <th class="px-4 py-3 text-left w-[100px]">Temps</th>
+          <th class="px-4 py-3 text-left">Source</th>
         </tr>
       </thead>
       <tbody>
@@ -55,6 +56,18 @@ const podiumClass = (rank) => {
                 </span>
               </td>
               <td class="px-4 py-3 font-mono">{result.data.time}</td>
+              <td class="px-4 py-3">
+                {result.data.source && (
+                  <a
+                    class="text-primary-600 hover:underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    href={result.data.source[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Source
+                  </a>
+                )}
+              </td>
             </tr>
           ))
         }
