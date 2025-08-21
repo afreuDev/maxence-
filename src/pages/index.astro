@@ -1,7 +1,8 @@
 ---
 import Layout from '~/layouts/LandingLayout.astro';
+import { SITE } from 'astrowind:config';
 import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import KpiStrip from '~/components/home/KpiStrip.astro';
 import BioMinimal from '~/components/home/BioMinimal.astro';
 import * as athlete from '~/content/athlete/maxence-mey.md';
 import Calendar from '~/components/widgets/Calendar.astro';
@@ -20,7 +21,13 @@ const futureRaces = upcoming
   .map((race: Omit<Race, 'date'> & { date: string }) => ({ ...race, date: new Date(race.date) }))
   .filter((race: Race) => race.date.getTime() >= today.getTime())
   .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
-const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+const next: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+
+const kpis = [
+  { label: "Record Half", value: "3h51" },
+  { label: "Podiums", value: "—" },
+  { label: "Classement PTO", value: "~270" },
+];
 
 const heroImage = {
   src: heroImageFile,
@@ -30,20 +37,50 @@ const heroImage = {
 };
 
 const metadata: MetaData = {
-  title: 'Maxence Mey - Triathlète Professionnel',
-  description: 'Résultats, calendrier, partenaires, et contact de Maxence Mey, triathlète professionnel français.',
-  nextRace: nextRace,
-  openGraph: {
-    images: [
-      {
-        url: '~/assets/images/hero-maxence.jpg',
-      },
-    ],
-  },
+  title: 'Maxence Mey – Triathlète professionnel',
+  description: 'Résultats, calendrier, partenaires, contact.',
+  nextRace: next,
 };
 ---
 
 <Layout metadata={metadata}>
+  <Fragment slot="head">
+    <meta property="og:title" content="Maxence Mey – Triathlète professionnel" />
+    <meta property="og:description" content="Résultats, calendrier, partenaires, contact." />
+    <meta property="og:image" content={new URL('og.jpg', SITE.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" is:inline>
+      {
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Maxence Mey',
+          jobTitle: 'Professional Triathlete',
+          sport: 'Triathlon',
+          url: SITE.site,
+          sameAs: ['https://instagram.com/maxencemeytri'],
+        })
+      }
+    </script>
+
+    {
+      next && (
+        <script type="application/ld+json" is:inline>
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SportsEvent',
+            name: next.race,
+            sport: 'Triathlon',
+            startDate: next.date,
+            location: { '@type': 'Place', name: next.city },
+            url: next.link,
+          })}
+        </script>
+      )
+    }
+  </Fragment>
+
   <!-- Hero Widget -->
   <Hero
     actions={[
@@ -67,15 +104,8 @@ const metadata: MetaData = {
     </Fragment>
   </Hero>
 
-  <!-- Stats Widget -->
-  <Stats
-    stats={[
-      { title: 'Victoire', amount: 'IM 70.3 Tanger 2023' },
-      { title: 'Podium', amount: 'Challenge Turku 2025' },
-      { title: 'Top 10', amount: 'Challenge Gdańsk 2025' },
-      { title: 'Club', amount: 'KEFORMA / Munegu' },
-    ]}
-  />
+  <!-- Kpi Strip -->
+  <KpiStrip kpis={kpis} />
 
   <!-- BIO MINIMALISTE (remplace l’ancienne section bio) -->
   <BioMinimal data={athlete.frontmatter} />
