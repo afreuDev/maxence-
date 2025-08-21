@@ -33,7 +33,7 @@ const jsonld: Record<string, unknown>[] = [
     name: 'Maxence Mey',
     jobTitle: 'Professional Triathlete',
     sport: 'Triathlon',
-    url: 'https://maxence-gules.vercel.app/',
+    url: Astro.site,
     sameAs: ['https://instagram.com/maxencemeytri'],
   },
 ];
@@ -45,7 +45,7 @@ if (nextRace) {
     name: nextRace.race,
     sport: 'Triathlon',
     startDate: nextRace.date.toISOString().split('T')[0],
-    location: { '@type': 'Place', name: nextRace.city || 'N/A' },
+    location: { '@type': 'Place', name: nextRace.race },
     url: nextRace.link,
   });
 }
