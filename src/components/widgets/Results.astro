@@ -6,10 +6,10 @@ import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 const results = (await getCollection('results')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const getPodiumClass = (rank: number) => {
-  if (rank === 1) return 'bg-yellow-100 text-yellow-800 ring-1 ring-inset ring-yellow-600/30';
-  if (rank === 2) return 'bg-slate-100 text-slate-800 ring-1 ring-inset ring-slate-600/30';
-  if (rank === 3) return 'bg-amber-100 text-amber-800 ring-1 ring-inset ring-amber-700/30';
-  return 'bg-gray-100 text-gray-800 ring-1 ring-inset ring-gray-500/10';
+  if (rank === 1) return 'bg-yellow-100 text-yellow-800 ring-yellow-600/30';
+  if (rank === 2) return 'bg-slate-100 text-slate-800 ring-slate-600/30';
+  if (rank === 3) return 'bg-amber-100 text-amber-800 ring-amber-700/30';
+  return '';
 };
 ---
 
