@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/LandingLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
 import { SITE } from 'astrowind:config';
+import Hero from '~/components/widgets/Hero.astro';
 import KpiStrip from '~/components/home/KpiStrip.astro';
 import BioMinimal from '~/components/home/BioMinimal.astro';
 import * as athlete from '~/content/athlete/maxence-mey.md';
@@ -24,7 +24,7 @@ const futureRaces = upcoming
 const next: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
 
 const kpis = [
-  { label: 'Record Half', value: '3h51' },
+  { label: "Record Half", value: "3h51" },
   { label: "Podiums", value: "—" },
   { label: "Classement PTO", value: "~270" },
 ];

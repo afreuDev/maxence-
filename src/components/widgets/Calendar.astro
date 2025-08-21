@@ -13,56 +13,35 @@ const futureRaces = upcoming
   .filter((race: Race) => race.date.getTime() >= today.getTime())
   .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
 
-const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+const race: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
 
-// 2. Calculate the countdown
-const diff = nextRace ? Math.ceil((nextRace.date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
+// 2. Calculate the countdown based on the user's logic
+const d = race ? new Date(race.date) : null;
+const diff = d ? Math.ceil((d.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
 const jLabel = diff !== null ? (diff >= 0 ? `J-${diff}` : `J+${Math.abs(diff)}`) : '—';
 
 // 3. Format date for display
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('fr-FR', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  });
-
-const race: Race | undefined = nextRace;
+const formatDate = (iso) => new Date(iso).toLocaleDateString('fr-FR', { weekday:'short', day:'2-digit', month:'long', year:'numeric' });
 ---
-
-{
-  race && (
-    <section aria-labelledby="next-race">
-      <div class="mx-auto max-w-7xl px-4">
-        <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div
-            class="h-12 w-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 border text-sm font-semibold"
-            aria-label={`Échéance ${jLabel}`}
-          >
-            {jLabel}
-          </div>
-          <div class="flex-1">
-            <h3 id="next-race" class="text-xl font-semibold">
-              {race.race}
-            </h3>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              {formatDate(race.date)} • {race.distance} • {race.city}
-            </p>
-            <a href="/calendrier" class="mt-3 inline-flex text-primary-600 hover:underline rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-              Voir le calendrier complet
-            </a>
-          </div>
-          <a
-            href={race.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center rounded-xl px-4 py-2 font-medium bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-          >
-            Découvrir la course
-          </a>
-        </div>
+{race && (
+<section aria-labelledby="next-race">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+      <div class="h-12 w-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 border text-sm font-semibold" aria-label={`Échéance ${jLabel}`}>
+        {jLabel}
       </div>
-    </section>
-  )
-}
+      <div class="flex-1">
+        <h3 id="next-race" class="text-xl font-semibold">{race.race}</h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          {formatDate(race.date)} • {race.distance} • {race.city}
+        </p>
+        <a href="/calendrier" class="mt-3 inline-flex text-primary-600 hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">Voir le calendrier complet</a>
+      </div>
+      <a href={race.link} target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center rounded-xl px-4 py-2 font-medium bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+        Découvrir la course
+      </a>
+    </div>
+  </div>
+</section>
+)}
