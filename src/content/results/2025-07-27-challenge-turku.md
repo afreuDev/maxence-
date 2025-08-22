@@ -9,6 +9,7 @@ bike: '—'
 run: '—'
 source:
   - 'https://live.ultimate.dk/desktop/front/index.php?eventid=6760'
+  - 'https://challengefamily.com/news/volar-and-de-boer-take-10th-anniversary-victories-at-challenge-turku/'
 tags: ['pro', 'podium']
 ---
 
