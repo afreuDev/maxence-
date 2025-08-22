@@ -1,6 +1,6 @@
 ---
 title: 'Challenge Gdańsk'
-date: 2025-06-15
+date: 2025-06-22
 distance: 'Middle'
 rank: 7
 time: '3:54:59'
@@ -8,7 +8,7 @@ swim: '25:41'
 bike: '2:08:28'
 run: '1:15:37'
 source:
-  - 'https://www.challenge-poland.com/' # Placeholder, no official results link provided
+  - 'https://stats.protriathletes.org/race/challenge-gdansk/2025/results'
 tags: ['pro']
 ---
 
