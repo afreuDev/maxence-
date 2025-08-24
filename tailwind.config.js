@@ -12,11 +12,20 @@ export default {
         accent: 'var(--aw-color-accent)',
         default: 'var(--aw-color-text-default)',
         muted: 'var(--aw-color-text-muted)',
+        'page': 'var(--aw-color-bg-page)',
+        'page-light': 'var(--aw-color-bg-page-light)',
+        'page-lighter': 'var(--aw-color-bg-page-lighter)',
       },
       fontFamily: {
         sans: ['var(--aw-font-sans, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
         serif: ['var(--aw-font-serif, ui-serif)', ...defaultTheme.fontFamily.serif],
         heading: ['var(--aw-font-heading, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
+      },
+      fontSize: {
+        '5xl': 'clamp(3rem, 8vw, 4.5rem)',
+        '6xl': 'clamp(3.5rem, 10vw, 6rem)',
+        '7xl': 'clamp(4rem, 12vw, 8rem)',
+        '8xl': 'clamp(4.5rem, 14vw, 10rem)',
       },
 
       animation: {

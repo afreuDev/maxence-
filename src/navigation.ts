@@ -5,32 +5,37 @@ export const headerData = {
       href: '/',
     },
     {
-      text: 'Calendrier',
-      href: '#calendrier',
+      text: 'Parcours',
+      href: '#a-propos',
+    },
+    {
+      text: 'Résultats',
+      href: '#resultats',
+    },
+    {
+      text: 'Partenaires',
+      href: '#partenaires',
     },
     {
       text: 'Contact',
       href: '#contact',
     },
   ],
-  actions: [{ text: 'Contact', href: '#contact', target: '_self' }],
+  actions: [],
 };
+
+import { getPermalink } from './utils/permalinks';
 
 export const footerData = {
   links: [],
   secondaryLinks: [
-    // { text: 'Terms', href: getPermalink('/terms') },
-    // { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: 'Mentions Légales', href: getPermalink('/legal') },
   ],
   socialLinks: [
     { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://instagram.com/maxencemeytri' },
     { ariaLabel: 'Email', icon: 'tabler:mail', href: 'mailto:maxencemey431@gmail.com' },
-    // { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
-    // { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
-    // { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
-    // { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/arthelokyo/astrowind' },
   ],
   footNote: `
-    © ${new Date().getFullYear()} Maxence Mey · Tous droits réservés.
+    © ${new Date().getFullYear()} Maxence Mey
   `,
 };

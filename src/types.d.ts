@@ -109,6 +109,40 @@ export interface Race {
   distance: string;
   link: string;
   city?: string;
+  country?: string;
+}
+
+export interface Value {
+  title: string;
+  description: string;
+}
+
+export interface Athlete {
+  bio: {
+    intro: string;
+    quote: string;
+    quoteAuthor: string;
+  };
+  values: Value[];
+  title: string;
+  role: string;
+  socials: {
+    instagram: string;
+    email: string;
+  };
+  cover: string;
+  naissance: string;
+  residence: string;
+  entraineur: string;
+  hobbies: string[];
+  taille: string;
+  poids: string;
+  pointure: number;
+  envergure: string;
+  largeur_epaules: string;
+  masse_graisseuse: string;
+  volume_cardiaque: string;
+  pouls_repos_max: string;
 }
 
 export interface Widget {

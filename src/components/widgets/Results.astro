@@ -3,78 +3,62 @@ import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 
 const { results } = Astro.props;
-
-const getPodiumClass = (rank: number) => {
-  if (rank === 1) return 'bg-yellow-200 text-yellow-900 ring-1 ring-inset ring-yellow-600/30';
-  if (rank === 2) return 'bg-slate-200 text-slate-900 ring-1 ring-inset ring-slate-600/30';
-  if (rank === 3) return 'bg-amber-200 text-amber-900 ring-1 ring-inset ring-amber-700/30';
-  return 'bg-gray-100 text-gray-800 ring-1 ring-inset ring-gray-500/10';
-};
 ---
 
 <WidgetWrapper>
   <Headline>
-    <Fragment slot="title">Résultats</Fragment>
+    <Fragment slot="title">Résultats récents</Fragment>
     <Fragment slot="subtitle">
-      Retrouvez ici le palmarès de Maxence Mey sur les courses nationales et internationales.
+      Palmarès de Maxence Mey sur le circuit professionnel.
     </Fragment>
   </Headline>
-  <div class="relative not-prose overflow-x-auto">
-    <table class="w-full text-left table-fixed">
-      <thead class="text-sm text-gray-500 dark:text-gray-400 uppercase">
-        <tr>
-          <th class="px-4 py-3 text-left w-[120px]">Date</th>
-          <th class="px-4 py-3 text-left w-[250px]">Course</th>
-          <th class="px-4 py-3 text-left w-[90px]">Dist.</th>
-          <th class="px-4 py-3 text-center w-[100px]">Classt.</th>
-          <th class="px-4 py-3 text-left w-[110px]">Temps</th>
-          <th class="px-4 py-3 text-center w-[100px]">Source</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          results.map(
-            (result: {
-              data: { date: Date; title: string; distance: string; rank: number; time: string; source: string[] };
-            }) => (
-              <tr class="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
-                <td class="px-4 py-3 font-medium">
-                  {new Date(result.data.date).toLocaleDateString('fr-FR', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </td>
-                <td class="px-4 py-3 font-bold">{result.data.title}</td>
-                <td class="px-4 py-3">{result.data.distance}</td>
-                <td class="px-4 py-3 text-center">
-                  <span
-                    class:list={[
-                      'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium',
-                      getPodiumClass(result.data.rank),
-                    ]}
-                  >
-                    {result.data.rank}
-                  </span>
-                </td>
-                <td class="px-4 py-3 font-mono">{result.data.time}</td>
-                <td class="px-4 py-3 text-center">
-                  {result.data.source && (
-                    <a
-                      class="text-primary-600 hover:underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                      href={result.data.source[0]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Source
+
+  <div class="space-y-8">
+    {
+      results.map((result: { data: any }) => {
+        const { date, title, distance, rank, time, swim, bike, run, source } = result.data;
+        const hasSplits = swim && bike && run && swim !== '—';
+
+        return (
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start p-4 rounded-lg bg-page-light hover:bg-page-lighter transition">
+
+            {/* Date */}
+            <div class="md:col-span-2 text-sm text-muted">
+              {new Date(date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+
+            {/* Course Info */}
+            <div class="md:col-span-4">
+              <h3 class="font-bold text-lg text-primary">{title}</h3>
+              <p class="text-sm text-muted">{distance}</p>
+            </div>
+
+            {/* Rank & Time */}
+            <div class="md:col-span-3 text-left md:text-right">
+              <p class="font-bold text-lg text-primary">{time}</p>
+              <p class="text-sm text-muted">Classement: {rank}</p>
+            </div>
+
+            {/* Splits & Sources */}
+            <div class="md:col-span-3 md:text-right">
+              {hasSplits && (
+                <div class="text-xs text-muted font-mono">
+                  <span>{swim}</span> / <span>{bike}</span> / <span>{run}</span>
+                </div>
+              )}
+              {Array.isArray(source) && source.length > 0 && (
+                <div class="mt-2 flex flex-wrap gap-2 justify-start md:justify-end">
+                  {source.map((link, index) => (
+                    <a href={link} target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline">
+                      {`Source ${index + 1}`}
                     </a>
-                  )}
-                </td>
-              </tr>
-            )
-          )
-        }
-      </tbody>
-    </table>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })
+    }
   </div>
 </WidgetWrapper>

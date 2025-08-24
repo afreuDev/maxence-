@@ -1,17 +1,16 @@
 ---
 const { race } = Astro.props;
 
-// 2. Calculate the countdown
+// Calculate the countdown
 const today = new Date();
-today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
+today.setHours(0, 0, 0, 0);
 const diff = race ? Math.ceil((new Date(race.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
-const jLabel = diff !== null ? (diff > 0 ? `J-${diff}` : diff === 0 ? `Jour J` : `J+${Math.abs(diff)}`) : '—';
+const jLabel = diff !== null ? (diff > 0 ? `J-${diff}` : diff === 0 ? `Aujourd'hui` : null) : null;
 
-// 3. Format date for display
+// Format date for display
 const formatDate = (date: Date) =>
   date.toLocaleDateString('fr-FR', {
-    weekday: 'short',
-    day: '2-digit',
+    day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
@@ -19,38 +18,38 @@ const formatDate = (date: Date) =>
 
 {
   race && (
-    <section aria-labelledby="next-race">
-      <div class="mx-auto max-w-7xl px-4">
-        <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div
-            class="h-12 w-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 border text-sm font-semibold"
-            aria-label={`Échéance ${jLabel}`}
-          >
+    <section id="prochaine-course" class="py-16 sm:py-20 bg-page-lighter">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-secondary">
+          Prochaine Course
+        </h2>
+
+        <p class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-primary">
+          {race.race}
+        </p>
+
+        <p class="mt-2 text-lg text-muted">
+          {race.city} — {formatDate(new Date(race.date))}
+        </p>
+
+        {jLabel && (
+          <div class="mt-4 inline-block bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
             {jLabel}
           </div>
-          <div class="flex-1">
-            <h3 id="next-race" class="text-xl font-semibold">
-              {race.race}
-            </h3>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              {formatDate(new Date(race.date))} • {race.distance}
-            </p>
+        )}
+
+        {race.link && (
+          <div class="mt-8">
             <a
-              href="/calendrier"
-              class="mt-3 inline-flex text-primary-600 hover:underline rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              href={race.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-base font-medium text-accent hover:text-primary transition"
             >
-              Voir le calendrier complet
+              Détails officiels &rarr;
             </a>
           </div>
-          <a
-            href={race.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center rounded-xl px-4 py-2 font-medium bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-          >
-            Découvrir la course
-          </a>
-        </div>
+        )}
       </div>
     </section>
   )

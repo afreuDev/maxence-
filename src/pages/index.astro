@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/LandingLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import Values from '~/components/home/Values.astro';
 import BioMinimal from '~/components/home/BioMinimal.astro';
 import Calendar from '~/components/widgets/Calendar.astro';
 import Results from '~/components/widgets/Results.astro';
@@ -27,6 +27,7 @@ const metadata: MetaData = {
   title: 'Maxence Mey - Triathlète Professionnel',
   description: 'Résultats, calendrier, partenaires, et contact de Maxence Mey, triathlète professionnel français.',
   nextRace: nextRace,
+  athlete: athlete.frontmatter,
   openGraph: {
     images: [
       {
@@ -59,35 +60,21 @@ const metadata: MetaData = {
     </Fragment>
   </Hero>
 
-  <!-- Stats Widget -->
-  <Stats
-    stats={[
-      { title: 'Victoire', amount: 'IM 70.3 Tanger' },
-      { title: 'Podium', amount: 'Challenge Turku' },
-      { title: 'Top 10', amount: 'Challenge Gdańsk' },
-    ]}
-  />
+  <!-- Values Widget -->
+  <Values values={athlete.frontmatter.values} />
 
   <!-- BIO MINIMALISTE (remplace l’ancienne section bio) -->
   <BioMinimal data={athlete.frontmatter} />
 
   <!-- Calendar Widget -->
-  <section id="calendrier" class="py-12 md:py-16 lg:py-24">
-    <Calendar race={nextRace} />
-  </section>
+  <Calendar race={nextRace} />
 
   <!-- Results Widget -->
-  <section id="resultats">
-    <Results results={results} />
-  </section>
+  <Results results={results} />
 
   <!-- Partners Widget -->
-  <section id="partenaires">
-    <Partners partners={partners} />
-  </section>
+  <Partners partners={partners} />
 
   <!-- Contact Widget -->
-  <section id="contact">
-    <ContactSection />
-  </section>
+  <ContactSection id="contact"/>
 </Layout>
