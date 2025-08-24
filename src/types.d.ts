@@ -95,6 +95,7 @@ export interface Image {
   alt?: string;
   width?: number;
   height?: number;
+  href?: string;
 }
 
 export interface Video {

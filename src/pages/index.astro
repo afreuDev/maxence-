@@ -3,30 +3,24 @@ import Layout from '~/layouts/LandingLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import BioMinimal from '~/components/home/BioMinimal.astro';
-import * as athlete from '~/content/athlete/maxence-mey.md';
 import Calendar from '~/components/widgets/Calendar.astro';
 import Results from '~/components/widgets/Results.astro';
 import Partners from '~/components/widgets/Partners.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
-import calendarData from '~/content/calendar/2025.yaml';
-import type { Race, MetaData } from '~/types';
+import type { MetaData } from '~/types';
 import heroImageFile from '~/assets/images/hero-maxence.jpg';
 
-// Find next race for SEO metadata
-const { upcoming } = calendarData;
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-const futureRaces = upcoming
-  .map((race: Omit<Race, 'date'> & { date: string }) => ({ ...race, date: new Date(race.date) }))
-  .filter((race: Race) => race.date.getTime() >= today.getTime())
-  .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
-const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+import { getAthlete, getResults, getUpcomingRace, getPartners } from '~/lib/cms/fetchers';
+import { CMS_ENABLED } from '~/lib/cms/client';
+
+const athlete = await getAthlete();
+const results = await getResults({ limit: 5 });
+const nextRace = await getUpcomingRace();
+const partners = await getPartners();
 
 const heroImage = {
-  src: heroImageFile,
+  src: CMS_ENABLED && athlete.frontmatter.cover ? athlete.frontmatter.cover : heroImageFile,
   alt: 'Maxence Mey triathlète',
-  width: heroImageFile.width,
-  height: heroImageFile.height,
 };
 
 const metadata: MetaData = {
@@ -36,7 +30,7 @@ const metadata: MetaData = {
   openGraph: {
     images: [
       {
-        url: '~/assets/images/hero-maxence.jpg',
+        url: CMS_ENABLED && athlete.frontmatter.cover ? athlete.frontmatter.cover : '~/assets/images/hero-maxence.jpg',
       },
     ],
   },
@@ -50,7 +44,7 @@ const metadata: MetaData = {
       {
         variant: 'primary',
         text: 'Suivre sur Instagram',
-        href: 'https://instagram.com/maxencemeytri',
+        href: athlete.frontmatter.socials.instagram,
         target: '_blank',
         icon: 'tabler:brand-instagram',
       },
@@ -58,12 +52,10 @@ const metadata: MetaData = {
     ]}
     image={heroImage}
   >
-    <Fragment slot="title"> Maxence Mey </Fragment>
+    <Fragment slot="title"> {athlete.frontmatter.title} </Fragment>
 
     <Fragment slot="subtitle">
-      <span class="block sm:inline">Triathlète professionnel</span>
-      <span class="hidden sm:inline"> · </span>
-      <span class="block sm:inline">Middle Distance / 70.3</span>
+      <span class="block sm:inline">{athlete.frontmatter.role}</span>
     </Fragment>
   </Hero>
 
@@ -81,17 +73,17 @@ const metadata: MetaData = {
 
   <!-- Calendar Widget -->
   <section id="calendrier" class="py-12 md:py-16 lg:py-24">
-    <Calendar />
+    <Calendar race={nextRace} />
   </section>
 
   <!-- Results Widget -->
   <section id="resultats">
-    <Results />
+    <Results results={results} />
   </section>
 
   <!-- Partners Widget -->
   <section id="partenaires">
-    <Partners />
+    <Partners partners={partners} />
   </section>
 
   <!-- Contact Widget -->
