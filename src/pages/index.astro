@@ -40,25 +40,12 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <!-- Hero Widget -->
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Suivre sur Instagram',
-        href: athlete.frontmatter.socials.instagram,
-        target: '_blank',
-        icon: 'tabler:brand-instagram',
-      },
-      { text: 'Contact', href: '#contact' },
-    ]}
-    image={heroImage}
-  >
+  <Hero image={heroImage}>
     <Fragment slot="title"> {athlete.frontmatter.title} </Fragment>
-
-    <Fragment slot="subtitle">
-      <span class="block sm:inline">{athlete.frontmatter.role}</span>
-    </Fragment>
   </Hero>
+
+  <!-- Partners Widget -->
+  <Partners partners={partners} />
 
   <!-- Values Widget -->
   <Values values={athlete.frontmatter.values} />
@@ -71,9 +58,6 @@ const metadata: MetaData = {
 
   <!-- Results Widget -->
   <Results results={results} />
-
-  <!-- Partners Widget -->
-  <Partners partners={partners} />
 
   <!-- Contact Widget -->
   <ContactSection id="contact"/>
