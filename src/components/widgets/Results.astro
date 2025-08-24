@@ -1,9 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 
-const results = (await getCollection('results')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const { results } = Astro.props;
 
 const getPodiumClass = (rank: number) => {
   if (rank === 1) return 'bg-yellow-200 text-yellow-900 ring-1 ring-inset ring-yellow-600/30';
@@ -34,42 +33,46 @@ const getPodiumClass = (rank: number) => {
       </thead>
       <tbody>
         {
-          results.map((result) => (
-            <tr class="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
-              <td class="px-4 py-3 font-medium">
-                {new Date(result.data.date).toLocaleDateString('fr-FR', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
-              </td>
-              <td class="px-4 py-3 font-bold">{result.data.title}</td>
-              <td class="px-4 py-3">{result.data.distance}</td>
-              <td class="px-4 py-3 text-center">
-                <span
-                  class:list={[
-                    'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium',
-                    getPodiumClass(result.data.rank),
-                  ]}
-                >
-                  {result.data.rank}
-                </span>
-              </td>
-              <td class="px-4 py-3 font-mono">{result.data.time}</td>
-              <td class="px-4 py-3 text-center">
-                {result.data.source && (
-                  <a
-                    class="text-primary-600 hover:underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                    href={result.data.source[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
+          results.map(
+            (result: {
+              data: { date: Date; title: string; distance: string; rank: number; time: string; source: string[] };
+            }) => (
+              <tr class="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
+                <td class="px-4 py-3 font-medium">
+                  {new Date(result.data.date).toLocaleDateString('fr-FR', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </td>
+                <td class="px-4 py-3 font-bold">{result.data.title}</td>
+                <td class="px-4 py-3">{result.data.distance}</td>
+                <td class="px-4 py-3 text-center">
+                  <span
+                    class:list={[
+                      'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium',
+                      getPodiumClass(result.data.rank),
+                    ]}
                   >
-                    Source
-                  </a>
-                )}
-              </td>
-            </tr>
-          ))
+                    {result.data.rank}
+                  </span>
+                </td>
+                <td class="px-4 py-3 font-mono">{result.data.time}</td>
+                <td class="px-4 py-3 text-center">
+                  {result.data.source && (
+                    <a
+                      class="text-primary-600 hover:underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                      href={result.data.source[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Source
+                    </a>
+                  )}
+                </td>
+              </tr>
+            )
+          )
         }
       </tbody>
     </table>

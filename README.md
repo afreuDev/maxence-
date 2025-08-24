@@ -300,3 +300,91 @@ Initially created by **Arthelokyo** and maintained by a community of [contributo
 ## License
 
 **AstroWind** is licensed under the MIT license — see the [LICENSE](./LICENSE.md) file for details.
+
+## DatoCMS Integration
+
+This project is configured to use DatoCMS as a headless CMS. The integration is designed to be seamless, allowing developers to switch between local content and DatoCMS content using environment variables.
+
+### Environment Variables
+
+To enable the DatoCMS integration, you need to set the following environment variables in your `.env` file or in your hosting provider's settings (e.g., Vercel):
+
+- `CMS_ENABLED`: Set to `"true"` to enable the DatoCMS integration.
+- `DATOCMS_API_TOKEN`: Your read-only API token from DatoCMS.
+- `DATOCMS_ENV`: (Optional) The DatoCMS environment to use (e.g., `main`). Defaults to `main`.
+- `DATOCMS_ENDPOINT`: (Optional) The DatoCMS GraphQL endpoint. Defaults to `https://graphql.datocms.com/`.
+
+When `CMS_ENABLED` is not `"true"` or `DATOCMS_API_TOKEN` is not set, the site will fall back to using the local content in `src/content/`.
+
+### DatoCMS Schema
+
+You need to create the following models (types) in your DatoCMS project:
+
+**1. Athlete (singleton)**
+
+- `name` (string)
+- `role` (string)
+- `summary` (text)
+- `bioIntro` (text)
+- `bioQuote` (string)
+- `bioFacts` (JSON, list of `{label, value}`)
+- `instagram` (string)
+- `email` (string)
+- `cover` (image)
+
+**2. Result (collection)**
+
+- `title` (string, required)
+- `date` (date, required)
+- `distance` (string)
+- `rank` (integer, required, validation: >= 1)
+- `time` (string)
+- `swim` (string)
+- `bike` (string)
+- `run` (string)
+- `sources` (JSON, list of urls)
+
+**3. Race (collection)**
+
+- `race` (string, required)
+- `date` (date, required)
+- `distance` (string)
+- `city` (string)
+- `link` (string, validation: URL)
+
+**4. Partner (collection)**
+
+- `name` (string, required)
+- `url` (string, validation: URL)
+- `logo` (image)
+
+**5. Press (collection)**
+
+- `title` (string, required)
+- `date` (date, required)
+- `source` (string)
+- `url` (string, validation: URL)
+
+### Vercel Deploy Hooks
+
+To enable automatic deploys on Vercel when content is updated in DatoCMS, you need to set up a deploy hook.
+
+1. In your Vercel project, go to **Settings > Git > Deploy Hooks**.
+2. Create a new hook, give it a name (e.g., "DatoCMS"), and specify the branch to deploy (e.g., `main`).
+3. Copy the generated hook URL.
+4. In your DatoCMS project, go to **Settings > Build Triggers**.
+5. Add a new build trigger, paste the Vercel deploy hook URL, and check the boxes for "Publish" and "Unpublish" under "Trigger on".
+
+Now, whenever you publish or unpublish content in DatoCMS, a new deployment will be triggered on Vercel.
+
+### Content Editing
+
+To edit the content of the site, go to your DatoCMS back-office.
+
+- **Bio/Hero**: Edit the content in the "Athlete" singleton model.
+- **Upcoming Race**: The next race is automatically determined from the "Race" collection (the one with the closest date in the future).
+- **Results**: Add or edit results in the "Result" collection.
+- **Partners**: Manage partners in the "Partner" collection.
+- **Press**: Add or edit press articles in the "Press" collection.
+
+After publishing your changes in DatoCMS, the site will be automatically rebuilt and deployed if you have configured the Vercel deploy hooks.

@@ -27,6 +27,7 @@
     "@astrojs/vercel": "^8.2.6",
     "@astrolib/analytics": "^0.6.1",
     "@astrolib/seo": "^1.0.0-beta.8",
+    "@datocms/cda-client": "^0.2.7",
     "@fontsource/bebas-neue": "^5.2.6",
     "@fontsource/poppins": "^5.2.6",
     "astro": "^5.12.9",

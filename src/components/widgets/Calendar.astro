@@ -1,22 +1,10 @@
 ---
-import calendarData from '~/content/calendar/2025.yaml';
-import type { Race } from '~/types';
-
-const { upcoming } = calendarData;
-
-// 1. Filter out past races and sort to find the next one
-const today = new Date();
-today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
-
-const futureRaces = upcoming
-  .map((race: Omit<Race, 'date'> & { date: string }) => ({ ...race, date: new Date(race.date) }))
-  .filter((race: Race) => race.date.getTime() >= today.getTime())
-  .sort((a: Race, b: Race) => a.date.getTime() - b.date.getTime());
-
-const nextRace: Race | undefined = futureRaces.length > 0 ? futureRaces[0] : undefined;
+const { race } = Astro.props;
 
 // 2. Calculate the countdown
-const diff = nextRace ? Math.ceil((nextRace.date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
+const today = new Date();
+today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
+const diff = race ? Math.ceil((new Date(race.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : null;
 const jLabel = diff !== null ? (diff > 0 ? `J-${diff}` : diff === 0 ? `Jour J` : `J+${Math.abs(diff)}`) : '—';
 
 // 3. Format date for display
@@ -27,8 +15,6 @@ const formatDate = (date: Date) =>
     month: 'long',
     year: 'numeric',
   });
-
-const race: Race | undefined = nextRace;
 ---
 
 {
@@ -47,7 +33,7 @@ const race: Race | undefined = nextRace;
               {race.race}
             </h3>
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              {formatDate(race.date)} • {race.distance}
+              {formatDate(new Date(race.date))} • {race.distance}
             </p>
             <a
               href="/calendrier"
