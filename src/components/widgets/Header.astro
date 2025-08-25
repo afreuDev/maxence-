@@ -1,6 +1,7 @@
 ---
 import Logo from '~/components/Logo.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import { getHomePermalink } from '~/utils/permalinks';
 import { trimSlash } from '~/utils/permalinks';
 
@@ -14,13 +15,15 @@ interface Link {
 export interface Props {
   id?: string;
   links?: Array<Link>;
-  isSticky?: boolean;
+  showToggleTheme?: boolean;
+  noPaddingTop?: boolean;
 }
 
 const {
   id = 'header',
   links = [],
-  isSticky = false,
+  showToggleTheme = false,
+  noPaddingTop = false,
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
@@ -29,9 +32,6 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 <header
   class:list={[
     'absolute top-0 z-40 w-full',
-    {
-      'is-sticky': isSticky,
-    }
   ]}
   {...id ? { id } : {}}
 >
@@ -63,11 +63,13 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
         }
       </nav>
 
+      <div class="hidden md:flex items-center">
+        {showToggleTheme && <ToggleTheme class:list={[{ 'text-white': noPaddingTop, 'text-muted': !noPaddingTop }]} />}
+      </div>
       <!-- Mobile menu button -->
       <div class="md:hidden flex items-center">
-        <ToggleMenu>
-          <span class="sr-only">Open main menu</span>
-        </ToggleMenu>
+        {showToggleTheme && <ToggleTheme class:list={[{ 'text-white': noPaddingTop, 'text-muted': !noPaddingTop }]} />}
+        <ToggleMenu />
       </div>
     </div>
   </div>
@@ -93,20 +95,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 </header>
 
 <script>
-  // Add scroll listener to handle header background
+  // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('header');
-    if (header && header.classList.contains('is-sticky')) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-    }
-
-    // Mobile menu toggle
     const toggle = document.querySelector('[data-aw-toggle-menu]');
     const menu = document.getElementById('mobile-menu');
     if (toggle && menu) {
@@ -126,10 +116,6 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 <style>
   #header {
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-  }
-  #header.scrolled {
-    background-color: var(--aw-color-bg-header);
-    @apply backdrop-blur-lg border-b border-white/10;
   }
 
   /* Active link style */

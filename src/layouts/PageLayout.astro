@@ -10,9 +10,10 @@ import type { MetaData } from '~/types';
 
 export interface Props {
   metadata?: MetaData;
+  noPaddingTop?: boolean;
 }
 
-const { metadata } = Astro.props;
+const { metadata, noPaddingTop = false } = Astro.props;
 ---
 
 <Layout metadata={metadata}>
@@ -20,9 +21,9 @@ const { metadata } = Astro.props;
     <Announcement />
   </slot>
   <slot name="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+    <Header {...headerData} showRssFeed showToggleTheme noPaddingTop={noPaddingTop} />
   </slot>
-  <main class="pt-20 md:pt-0">
+  <main class:list={[{ 'pt-20 md:pt-0': !noPaddingTop }]}>
     <slot />
   </main>
   <slot name="footer">
