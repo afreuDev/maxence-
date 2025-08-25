@@ -93,20 +93,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 </header>
 
 <script>
-  // Add scroll listener to handle header background
+  // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('header');
-    if (header && header.classList.contains('is-sticky')) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-    }
-
-    // Mobile menu toggle
     const toggle = document.querySelector('[data-aw-toggle-menu]');
     const menu = document.getElementById('mobile-menu');
     if (toggle && menu) {
@@ -135,10 +123,6 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 <style>
   #header {
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-  }
-  #header.scrolled {
-    background-color: var(--aw-color-bg-header);
-    @apply backdrop-blur-lg border-b border-white/10;
   }
 
   /* Active link style */
