@@ -1,17 +1,17 @@
 ---
 bio:
-  intro: 'Formé en natation, Maxence s’impose sur le half (70.3) avec une approche offensive à vélo et régulière en course à pied.'
+  intro: 'Formé en natation, Maxence s’est imposé sur le half (70.3) avec un style offensif à vélo et une course à pied solide. Il privilégie la constance : progresser course après course, sans artifice.'
   quote: 'Chercher la limite, course après course, en restant simple et focalisé.'
   quoteAuthor: 'Maxence Mey'
-  facts:
-    - label: 'Spécialité'
-      value: 'Middle (70.3)'
-    - label: 'Point fort'
-      value: 'Vélo / gestion d’effort'
-    - label: 'Palmarès'
-      value: 'Vainqueur IM 70.3 Tanger 2023, podiums Challenge 2025'
+values:
+  - title: 'Constance'
+    description: 'Progresser course après course, sans artifice.'
+  - title: 'Gestion d’effort'
+    description: 'Être fort à vélo, lucide à pied.'
+  - title: 'Simplicité'
+    description: 'Garder l’essentiel pour viser juste.'
 title: 'Maxence Mey'
-role: 'Triathlète professionnel – Middle distance'
+role: 'Triathlète professionnel — middle distance (70.3)'
 socials:
   instagram: 'https://instagram.com/maxencemeytri'
   email: 'maxencemey431@gmail.com'

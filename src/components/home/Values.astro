@@ -1,0 +1,32 @@
+---
+import type { Value } from '~/types';
+
+export interface Props {
+  values?: Value[];
+}
+
+const { values } = Astro.props;
+---
+
+{
+  values && values.length > 0 && (
+    <section class="py-16 sm:py-20 bg-page-light">
+      <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center">
+          {
+            values.map((item) => (
+              <div class="flex flex-col items-center">
+                <h3 class="text-xl font-bold tracking-tight text-primary">
+                  {item.title}
+                </h3>
+                <p class="mt-2 text-base text-muted">
+                  {item.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -9,38 +9,42 @@ import '@fontsource/poppins/700.css';
     --aw-font-serif: 'Poppins', sans-serif;
     --aw-font-heading: 'Poppins', sans-serif;
 
-    /* Simple Black/White Palette (Light) */
-    --aw-color-primary: rgb(20 20 20); /* Near Black */
-    --aw-color-secondary: rgb(50 50 50); /* Dark Gray */
-    --aw-color-accent: rgb(100 100 100); /* Gray */
+    /* New Palette */
+    --aw-color-primary: rgb(11 11 11); /* #0B0B0B */
+    --aw-color-secondary: rgb(154 154 154); /* #9A9A9A */
+    --aw-color-accent: rgb(169 29 58); /* #A91D3A - Deep Red */
 
-    --aw-color-text-heading: rgb(20 20 20); /* Near Black */
-    --aw-color-text-default: rgb(42 42 42);
-    --aw-color-text-muted: rgb(42 42 42 / 66%);
-    --aw-color-bg-page: rgb(255 255 255);
+    --aw-color-text-heading: rgb(11 11 11); /* #0B0B0B */
+    --aw-color-text-default: rgb(11 11 11); /* #0B0B0B */
+    --aw-color-text-muted: rgb(154 154 154); /* #9A9A9A */
+
+    --aw-color-bg-page: rgb(255 255 255); /* #FFFFFF */
+    --aw-color-bg-page-light: rgb(246 246 246); /* #F6F6F6 */
+    --aw-color-bg-page-lighter: rgb(237 237 237); /* #EDEDED */
+    --aw-color-bg-header: rgba(11, 11, 11, 0.8);
+    --aw-color-bg-mobile-menu: rgba(11, 11, 11, 0.95);
 
     ::selection {
-      background-color: rgba(20, 20, 20, 0.1);
+      background-color: rgba(169, 29, 58, 0.1);
     }
   }
 
+  /* Dark mode is not part of the design spec, but we'll keep it for consistency */
   .dark {
-    --aw-font-sans: 'Poppins', sans-serif;
-    --aw-font-serif: 'Poppins', sans-serif;
-    --aw-font-heading: 'Poppins', sans-serif;
-
-    /* Simple Black/White Palette (Dark) */
-    --aw-color-primary: rgb(230 230 230); /* Near White */
-    --aw-color-secondary: rgb(200 200 200); /* Light Gray */
-    --aw-color-accent: rgb(150 150 150); /* Gray */
+    --aw-color-primary: rgb(255 255 255);
+    --aw-color-secondary: rgb(154 154 154);
+    --aw-color-accent: rgb(169 29 58);
 
     --aw-color-text-heading: rgb(255 255 255);
-    --aw-color-text-default: rgb(229 236 246);
-    --aw-color-text-muted: rgb(229 236 246 / 66%);
-    --aw-color-bg-page: rgb(20 20 20); /* Near Black */
+    --aw-color-text-default: rgb(237 237 237);
+    --aw-color-text-muted: rgb(154 154 154);
+
+    --aw-color-bg-page: rgb(11 11 11);
+    --aw-color-bg-page-light: rgb(20 20 20);
+    --aw-color-bg-page-lighter: rgb(30 30 30);
 
     ::selection {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(169, 29, 58, 0.2);
     }
   }
 </style>

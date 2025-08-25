@@ -1,9 +1,13 @@
 upcoming:
   - race: 'Challenge Cesenatico'
+    city: 'Cesenatico'
+    country: 'ITA'
     date: '2025-09-28'
     distance: 'Middle'
     link: 'https://challenge-family.com/'
   - race: 'Challenge Gdańsk'
-    date: '2026-06-14' # Using a placeholder day
+    city: 'Gdańsk'
+    country: 'POL'
+    date: '2026-06-14'
     distance: 'Middle'
     link: 'https://challenge-poland.com/'

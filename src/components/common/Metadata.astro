@@ -5,14 +5,15 @@ import { AstroSeo } from '@astrolib/seo';
 import type { Props as AstroSeoProps } from '@astrolib/seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
-import type { MetaData, Race } from '~/types';
+import type { MetaData, Race, Athlete } from '~/types';
 import { getCanonical } from '~/utils/permalinks';
 
-import { adaptOpenGraphImages } from '~/utils/images';
+import { adaptOpenGraphImages, findImage } from '~/utils/images';
 
 export interface Props extends MetaData {
   dontUseTitleTemplate?: boolean;
   nextRace?: Race;
+  athlete?: Athlete;
 }
 
 const {
@@ -24,19 +25,30 @@ const {
   openGraph = {},
   twitter = {},
   nextRace,
+  athlete,
 } = Astro.props;
 
-const jsonld: Record<string, unknown>[] = [
-  {
+const jsonld: Record<string, unknown>[] = [];
+
+if (athlete) {
+  const image = await findImage(athlete.cover);
+  const imageUrl = typeof image === 'string' ? image : image ? new URL(image.src, Astro.site).href : '';
+
+  jsonld.push({
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Maxence Mey',
+    name: athlete.title,
     jobTitle: 'Professional Triathlete',
     sport: 'Triathlon',
     url: Astro.site,
-    sameAs: ['https://instagram.com/maxencemeytri'],
-  },
-];
+    image: imageUrl,
+    birthDate: athlete.naissance,
+    height: { '@type': 'QuantitativeValue', value: athlete.taille },
+    weight: { '@type': 'QuantitativeValue', value: athlete.poids },
+    nationality: 'French',
+    sameAs: [athlete.socials.instagram, `mailto:${athlete.socials.email}`],
+  });
+}
 
 if (nextRace) {
   jsonld.push({
@@ -45,8 +57,20 @@ if (nextRace) {
     name: nextRace.race,
     sport: 'Triathlon',
     startDate: nextRace.date.toISOString().split('T')[0],
-    location: { '@type': 'Place', name: nextRace.race },
+    location: {
+      '@type': 'Place',
+      name: nextRace.city,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: nextRace.city,
+        addressCountry: nextRace.country,
+      }
+    },
     url: nextRace.link,
+    performer: {
+      '@type': 'Person',
+      name: athlete?.title,
+    }
   });
 }
 
