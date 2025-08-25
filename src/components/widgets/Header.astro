@@ -119,6 +119,15 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
           menu.style.display = 'none';
         }
       });
+
+      // Close mobile menu when a link is clicked
+      const menuLinks = menu.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menu.style.display = 'none';
+          toggle.classList.remove('expanded');
+        });
+      });
     }
   });
 </script>
