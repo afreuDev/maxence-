@@ -12,7 +12,7 @@ export interface Props {
 const { metadata } = Astro.props;
 ---
 
-<PageLayout metadata={metadata}>
+<PageLayout metadata={metadata} noPaddingTop={true}>
   <Fragment slot="announcement">
     <slot name="announcement" />
   </Fragment>
