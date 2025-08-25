@@ -21,7 +21,7 @@ const { metadata, noPaddingTop = false } = Astro.props;
     <Announcement />
   </slot>
   <slot name="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme noPaddingTop={noPaddingTop} />
+    <Header {...headerData} showRssFeed showToggleTheme noPaddingTop={noPaddingTop} />
   </slot>
   <main class:list={[{ 'pt-20 md:pt-0': !noPaddingTop }]}>
     <slot />
