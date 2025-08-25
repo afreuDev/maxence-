@@ -1,6 +1,7 @@
 ---
 import Logo from '~/components/Logo.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import { getHomePermalink } from '~/utils/permalinks';
 import { trimSlash } from '~/utils/permalinks';
 
@@ -14,25 +15,20 @@ interface Link {
 export interface Props {
   id?: string;
   links?: Array<Link>;
-  isSticky?: boolean;
+  showToggleTheme?: boolean;
 }
 
 const {
   id = 'header',
   links = [],
-  isSticky = false,
+  showToggleTheme = false,
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
 <header
-  class:list={[
-    'absolute top-0 z-40 w-full',
-    {
-      'is-sticky': isSticky,
-    }
-  ]}
+  class:list={['absolute top-0 z-40 w-full']}
   {...id ? { id } : {}}
 >
   <div
@@ -47,7 +43,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       </div>
 
       <!-- Desktop navigation -->
-      <nav class="hidden md:flex md:space-x-8" aria-label="Main navigation">
+      <nav class="hidden md:flex md:items-center md:space-x-8" aria-label="Main navigation">
         {
           links.map(({ text, href }) => (
             <a
@@ -61,13 +57,17 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
             </a>
           ))
         }
+        {showToggleTheme && (
+          <div class="hidden md:block">
+            <ToggleTheme />
+          </div>
+        )}
       </nav>
 
       <!-- Mobile menu button -->
       <div class="md:hidden flex items-center">
-        <ToggleMenu>
-          <span class="sr-only">Open main menu</span>
-        </ToggleMenu>
+        {showToggleTheme && <ToggleTheme />}
+        <ToggleMenu />
       </div>
     </div>
   </div>
@@ -96,28 +96,13 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
   // Add scroll listener to handle header background
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('header');
-    if (header && header.classList.contains('is-sticky')) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-    }
 
     // Mobile menu toggle
     const toggle = document.querySelector('[data-aw-toggle-menu]');
-    const menu = document.getElementById('mobile-menu');
-    if (toggle && menu) {
-      menu.style.display = 'none'; // Initially hidden
+    if (toggle && header) {
       toggle.addEventListener('click', () => {
         toggle.classList.toggle('expanded');
-        if (menu.style.display === 'none') {
-          menu.style.display = 'block';
-        } else {
-          menu.style.display = 'none';
-        }
+        header.classList.toggle('menu-open');
       });
     }
   });
@@ -126,10 +111,6 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 <style>
   #header {
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-  }
-  #header.scrolled {
-    background-color: var(--aw-color-bg-header);
-    @apply backdrop-blur-lg border-b border-white/10;
   }
 
   /* Active link style */
@@ -141,7 +122,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
     background-color: var(--aw-color-bg-mobile-menu);
     @apply hidden backdrop-blur-lg;
   }
-  #mobile-menu.block {
-    display: block;
+
+  #header.menu-open #mobile-menu {
+    @apply block;
   }
 </style>
